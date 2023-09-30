@@ -1,46 +1,77 @@
-# Getting Started with Create React App
+# CruxTrack - Rock Climbing Route Tracker
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+- [**Link to Backend GitHub Repository**](https://github.com/TaylorMurdock/cruxtrack-backend)
+- [**Link to Frontend GitHub Repository**](https://github.com/TaylorMurdock/cruxtrack-frontend)
+- [**Link to Deployed Website**](https://cruxtrack-app-url.com/)
 
-## Available Scripts
+## About CruxTrack
 
-In the project directory, you can run:
+CruxTrack is the ultimate companion for rock climbers, offering a streamlined way to keep a record of your climbing routes, whether they are conquered challenges, future aspirations, or memorable adventures. In a world of endless climbing opportunities, CruxTrack ensures you never forget your favorite routes or the ones you dream of conquering.
 
-### `npm start`
+## Technologies Used
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+- **Frontend**: React, TypeScript, TailwindCSS
+- **Backend**: Node.js (Express), Prisma, PostgreSQL
+- **Authentication**: JWT with Cookies
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+## Features
 
-### `npm test`
+- **User Authentication:** CruxTrack provides a secure and user-friendly authentication system. Users can create accounts, log in, and manage their climbing routes with ease.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+- **Route Difficulty Ratings:** Assign difficulty ratings to your climbing routes, helping you and others gauge the challenge level.
 
-### `npm run build`
+- **Photo Uploads:** Capture and document your climbs with photos, associating them with specific routes.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+- **Gear Inventory:** Manage your climbing gear and track which equipment was used for each climb. Set maintenance reminders and keep gear records organized.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+- **Climbing Journal:** Write and save climbing trip journals, with entries for each climbing route. Add descriptions, notes, and reflections to document your climbing experiences.
+  
+- **Full CRUD Operations:** With CruxTrack, you can perform all CRUD (Create, Read, Update, Delete) operations on various aspects of your climbing community experience, including:
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## Future Enhancements
 
-### `npm run eject`
+While CruxTrack already offers a robust set of features for climbers, we have exciting plans for future enhancements to further enhance your climbing experience. Here are some of the features and improvements we are considering:
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+- **Follow Other Climbers:** Connect with fellow climbers by following their profiles. Stay updated on their climbing achievements and share your own.
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+- **Feed Page:** The feed page will display the climbing achievements of climbers you follow. Stay inspired by seeing what routes others have conquered.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+- **Private Posts:** CruxTrack will allow you to make your climbing route posts private, ensuring they don't appear in your followers' feed if you prefer to keep certain achievements to yourself.
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+- **Location-Based Route Discovery:** Discover climbing routes near your location and access maps and directions to those areas.
 
-## Learn More
+- **Full CRUD Operations:**
+  - **Followers:** Follow other climbers, view their profiles, and manage your followers and following lists.
+  - **Comments:** Leave comments on climbing routes, share tips, and engage in discussions with the climbing community.
+  - **User Profiles:** Enhance your profile by updating information, including profile pictures and personal details.
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+These are just a glimpse of the exciting features and enhancements we have in store for CruxTrack. Your feedback and suggestions play a crucial role in shaping the future of this app. We look forward to continuing our journey with you, the climbing community, to make CruxTrack the ultimate climbing companion.
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+Stay tuned for updates and announcements on our GitHub repositories and LinkedIn page as we work on bringing these enhancements to life!
+
+## Why Choose CruxTrack?
+
+- **Effortless Route Management:** CruxTrack simplifies the process of recording and managing your climbing routes. You can create, update, or remove routes in a few clicks, allowing you to focus on your next adventure.
+
+- **Connect with the Climbing Community:** Follow other climbers, get inspired by their achievements, and share your own climbing journey. CruxTrack fosters a sense of community among climbers.
+
+- **Privacy Control:** CruxTrack respects your privacy. You can choose which climbing achievements you want to share with your followers and which ones you want to keep private.
+
+## Contributions and Feedback
+
+Contributions are welcome! If you have any suggestions, bug reports, or improvements, feel free to [open an issue in the frontend repository](https://github.com/TaylorMurdock/cruxtrack-frontend/issues) or [open an issue in the backend repository](https://github.com/TaylorMurdock/cruxtrack-backend/issues). We value your input and are dedicated to making CruxTrack even better.
+
+## About the Developer
+
+CruxTrack is the brainchild of a passionate full-stack developer who is also an avid outdoors enthusiast. With a deep love for hiking, climbing, backpacking, and slacklining, the developer found themselves immersed in the world of outdoor adventures. As a dedicated climber, they recognized a significant gap in the climbing community and the absence of a comprehensive tool to track climbing routes and connect with fellow climbers.
+
+Driven by their passion for the great outdoors and their desire to enhance the climbing experience, this developer embarked on an inspiring journey to create CruxTrack. Their vision was clear: to empower climbers like themselves to keep meticulous records of their achievements, discover new routes, and forge connections within the climbing community.
+
+- [LinkedIn](https://www.linkedin.com/in/taylor-murdock/)
+
+Connect with me on LinkedIn to learn more about my background and stay updated on my latest projects!
+
+---
+
+Start your climbing journey with CruxTrack today! Keep your climbing routes organized, connect with fellow climbers, and achieve new heights in your climbing adventure.
+# cruxtrack-frontend
