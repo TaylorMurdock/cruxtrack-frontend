@@ -61,6 +61,10 @@ Stay tuned for updates and announcements on our GitHub repositories and LinkedIn
 
 Contributions are welcome! If you have any suggestions, bug reports, or improvements, feel free to [open an issue in the frontend repository](https://github.com/TaylorMurdock/cruxtrack-frontend/issues) or [open an issue in the backend repository](https://github.com/TaylorMurdock/cruxtrack-backend/issues). We value your input and are dedicated to making CruxTrack even better.
 
+![ERD](./images/cruxtrackERD.png)
+
+made with <https://lucid.app.com>
+
 ## About the Developer
 
 CruxTrack is the brainchild of a passionate full-stack developer who is also an avid outdoors enthusiast. With a deep love for hiking, climbing, backpacking, and slacklining, the developer found themselves immersed in the world of outdoor adventures. As a dedicated climber, they recognized a significant gap in the climbing community and the absence of a comprehensive tool to track climbing routes and connect with fellow climbers.
@@ -74,4 +78,5 @@ Connect with me on LinkedIn to learn more about my background and stay updated o
 ---
 
 Start your climbing journey with CruxTrack today! Keep your climbing routes organized, connect with fellow climbers, and achieve new heights in your climbing adventure.
+
 # cruxtrack-frontend
