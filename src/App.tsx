@@ -1,8 +1,8 @@
-// App.tsx
 import React from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import Gear from "./components/GearHandles";
+import Dashboard from "./components/Dashboard/Dashboard"; // Import the Dashboard component
 import NavBar from "./components/NavBar";
+import EntryDetails from "./components/Journal/EntryDetails";
 
 function App() {
   return (
@@ -10,7 +10,8 @@ function App() {
       <div className="App">
         <NavBar />
         <Routes>
-          <Route path="/" element={<Gear />} />
+          <Route path="/" element={<Dashboard />} />
+          <Route path="/journal/:id" element={<EntryDetails />} />
         </Routes>
       </div>
     </Router>

@@ -11,10 +11,10 @@ function formatDate(dateString: string) {
 }
 
 interface GearListProps {
-  gearData: { id: number; item: string; dateBought: string }[]; // Define the props interface
+  gearData: { id: number; item: string; dateBought: string }[];
   showEditIcons: boolean;
-  handleDelete: (id: number) => void; // Define the function prop for deleting
-  handleEdit: (id: number) => void; // Define the function prop for editing
+  handleDelete: (id: number) => void;
+  handleEdit: (id: number) => void;
 }
 
 function GearList(props: GearListProps) {
@@ -23,8 +23,8 @@ function GearList(props: GearListProps) {
       {props.gearData.map((gearItem) => (
         <li key={gearItem.id}>
           <span>
-            Item: {gearItem.item} - Date Bought:{" "}
-            {formatDate(gearItem.dateBought)}{" "}
+            Item: {gearItem.item} - Date Bought:
+            {formatDate(gearItem.dateBought)}
           </span>
           {props.showEditIcons && (
             <>
@@ -41,5 +41,4 @@ function GearList(props: GearListProps) {
     </ul>
   );
 }
-
 export default GearList;

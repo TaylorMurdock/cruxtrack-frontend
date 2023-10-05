@@ -1,15 +1,14 @@
-// GearForm.tsx
 import React, { ChangeEvent, FormEvent } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 
 interface GearFormProps {
-  item: { item: string; dateBought: string }; // Define the props interface for item and dateBought
-  selectedDate: Date | null; // Define the prop for the selected date
-  handleInputChange: (e: ChangeEvent<HTMLInputElement>) => void; // Define the function prop for input change
-  handleDateChange: (date: Date | null) => void; // Define the function prop for date change
-  handleSubmit: (e: FormEvent) => void; // Define the function prop for form submission
-  buttonText: string; // Define the text for the submit button
+  item: { item: string; dateBought: string };
+  selectedDate: Date | null;
+  handleInputChange: (e: ChangeEvent<HTMLInputElement>) => void;
+  handleDateChange: (date: Date | null) => void;
+  handleSubmit: (e: FormEvent) => void;
+  buttonText: string;
 }
 
 function GearForm(props: GearFormProps) {
@@ -21,7 +20,7 @@ function GearForm(props: GearFormProps) {
           type="text"
           name="item"
           value={props.item.item}
-          onChange={props.handleInputChange} // Bind the input change handler
+          onChange={props.handleInputChange}
           required
         />
       </label>
@@ -29,7 +28,7 @@ function GearForm(props: GearFormProps) {
         Date Bought:
         <DatePicker
           selected={props.selectedDate}
-          onChange={props.handleDateChange} // Bind the date change handler
+          onChange={props.handleDateChange}
           dateFormat="yyyy-MM-dd"
           placeholderText="Select a date"
         />

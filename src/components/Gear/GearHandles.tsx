@@ -1,10 +1,8 @@
 import React, { useEffect, useState, ChangeEvent, FormEvent } from "react";
-import GearForm from "./GearForm"; // Import the 'GearForm' component
-import GearList from "./GearList"; // Import the 'GearList' component
-import { FaEdit, FaPlus } from "react-icons/fa"; // Import the 'FaEdit' icon from the 'react-icons/fa' library
-import "tailwindcss/tailwind.css";
+import GearForm from "./GearForm";
+import GearList from "./GearList";
+import { FaEdit, FaPlus } from "react-icons/fa";
 
-// Define your GearItem interface here
 interface GearItem {
   id: number;
   item: string;
@@ -12,7 +10,6 @@ interface GearItem {
 }
 
 function Gear() {
-  // Define and initialize various pieces of state using the 'useState' hook
   const [gearData, setGearData] = useState<GearItem[]>([]);
   const [isFormVisible, setIsFormVisible] = useState(false);
   const [newGearItem, setNewGearItem] = useState({ item: "", dateBought: "" });
@@ -21,12 +18,10 @@ function Gear() {
   const [editingGearItem, setEditingGearItem] = useState<GearItem | null>(null);
   const [isEditing, setIsEditing] = useState(false);
 
-  // Use the 'useEffect' hook to fetch gear data when the component mounts
   useEffect(() => {
     fetchGearData();
   }, []);
 
-  // Define a function to fetch gear data from a server
   const fetchGearData = () => {
     fetch("http://localhost:5000/gear/")
       .then((response) => response.json())
@@ -34,33 +29,27 @@ function Gear() {
       .catch((error) => console.error("Error fetching gear data:", error));
   };
 
-  // Define a function to toggle the visibility of the gear form
   const toggleForm = () => {
     setIsFormVisible(!isFormVisible);
-    // Reset the edit state when showing the form
     setEditingGearItem(null);
     setIsEditing(false);
     setNewGearItem({ item: "", dateBought: "" });
     setSelectedDate(null);
   };
 
-  // Define a function to toggle the visibility of edit icons in the list
   const toggleEditIcons = () => {
     setShowEditIcons(!showEditIcons);
-    // Reset the edit state when toggling the edit icons
     setEditingGearItem(null);
     setIsEditing(false);
     setNewGearItem({ item: "", dateBought: "" });
     setSelectedDate(null);
   };
 
-  // Define a function to handle input changes in the gear form
   const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setNewGearItem({ ...newGearItem, [name]: value });
   };
 
-  // Define a function to handle the deletion of a gear item
   const handleDelete = async (id: number) => {
     try {
       const response = await fetch(`http://localhost:5000/gear/${id}`, {
@@ -83,7 +72,6 @@ function Gear() {
     }
   };
 
-  // Define a function to handle form submission when adding a gear item
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
 
@@ -120,7 +108,6 @@ function Gear() {
     }
   };
 
-  // Define a function to handle editing a gear item
   const handleEdit = (id: number) => {
     const editedGearItem = gearData.find((gearItem) => gearItem.id === id);
 
@@ -129,7 +116,6 @@ function Gear() {
       return;
     }
 
-    // Set the newGearItem and selectedDate with the data to be edited
     setNewGearItem({
       item: editedGearItem.item,
       dateBought: editedGearItem.dateBought,
@@ -140,7 +126,6 @@ function Gear() {
     setIsEditing(true);
   };
 
-  // Define a function to handle form submission when editing a gear item
   const handleEditSubmit = async () => {
     if (!selectedDate || !editingGearItem) {
       console.error("Please select a date and gear item to edit.");
@@ -182,12 +167,9 @@ function Gear() {
   };
 
   return (
-    <div
-      className="bg-gradient-to-r from-earth-1 to-earth-2 p-4"
-      style={{ position: "absolute", left: "2in", bottom: "2in" }}
-    >
-      <h2 className="text-2xl font-semibold mb-4 bg-gradient-to-r from-green-900 to-green-600 p-4 rounded text-white flex justify-center items-center mx-auto max-w-md">
-        <span className="mr-2">Gear</span>
+    <div>
+      <h2>
+        <span>Gear</span>
         <button onClick={toggleForm} className="ml-2">
           <FaPlus />
         </button>

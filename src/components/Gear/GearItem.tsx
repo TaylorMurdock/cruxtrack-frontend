@@ -1,12 +1,11 @@
-// GearItem.tsx
 import React from "react";
 import { FaTrash, FaEdit } from "react-icons/fa";
 
 interface GearItemProps {
-  gearItem: { id: number; item: string; dateBought: string }; // Define the props interface
-  handleDelete: () => void; // Define the function prop for deleting
-  handleEdit: () => void; // Define the function prop for editing
-  showEditIcons: boolean; // Boolean prop to determine whether to show edit icons
+  gearItem: { id: number; item: string; dateBought: string };
+  handleDelete: () => void;
+  handleEdit: () => void;
+  showEditIcons: boolean;
 }
 
 function GearItem(props: GearItemProps) {

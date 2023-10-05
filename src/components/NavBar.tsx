@@ -1,5 +1,5 @@
 import React from "react";
-import { FaList, FaEdit, FaBook } from "react-icons/fa";
+import { FaList, FaEdit } from "react-icons/fa";
 import { BsPeopleFill } from "react-icons/bs";
 import { CgDarkMode } from "react-icons/cg";
 import { RiLogoutBoxRFill } from "react-icons/ri";
@@ -26,14 +26,6 @@ function NavBar() {
           >
             <button>
               <FaEdit className="text-2xl" />
-            </button>
-          </Link>
-          <Link
-            to="/journal"
-            className="text-white text-2xl hover:text-light-brown"
-          >
-            <button>
-              <FaBook className="text-2xl" />
             </button>
           </Link>
           <Link
