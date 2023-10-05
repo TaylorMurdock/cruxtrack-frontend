@@ -186,7 +186,7 @@ function Gear() {
       className="bg-gradient-to-r from-earth-1 to-earth-2 p-4"
       style={{ position: "absolute", left: "2in", bottom: "2in" }}
     >
-      <h2 className="text-2xl font-semibold mb-4 bg-green-900 p-2 rounded text-white flex justify-center items-center mx-auto max-w-md">
+      <h2 className="text-2xl font-semibold mb-4 bg-gradient-to-r from-green-900 to-green-600 p-4 rounded text-white flex justify-center items-center mx-auto max-w-md">
         <span className="mr-2">Gear</span>
         <button onClick={toggleForm} className="ml-2">
           <FaPlus />
