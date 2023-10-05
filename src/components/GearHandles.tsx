@@ -1,8 +1,8 @@
 import React, { useEffect, useState, ChangeEvent, FormEvent } from "react";
-import { GrAdd } from "react-icons/gr"; // Import the 'GrAdd' icon from the 'react-icons/gr' library
 import GearForm from "./GearForm"; // Import the 'GearForm' component
 import GearList from "./GearList"; // Import the 'GearList' component
-import { FaEdit } from "react-icons/fa"; // Import the 'FaEdit' icon from the 'react-icons/fa' library
+import { FaEdit, FaPlus } from "react-icons/fa"; // Import the 'FaEdit' icon from the 'react-icons/fa' library
+import "tailwindcss/tailwind.css";
 
 // Define your GearItem interface here
 interface GearItem {
@@ -182,13 +182,16 @@ function Gear() {
   };
 
   return (
-    <div>
-      <h2>
-        Gear
-        <button onClick={toggleForm}>
-          <GrAdd />
+    <div
+      className="bg-gradient-to-r from-earth-1 to-earth-2 p-4"
+      style={{ position: "absolute", left: "2in", bottom: "2in" }}
+    >
+      <h2 className="text-2xl font-semibold mb-4 bg-green-900 p-2 rounded text-white flex justify-center items-center mx-auto max-w-md">
+        <span className="mr-2">Gear</span>
+        <button onClick={toggleForm} className="ml-2">
+          <FaPlus />
         </button>
-        <button onClick={toggleEditIcons}>
+        <button onClick={toggleEditIcons} className="ml-2">
           <FaEdit />
         </button>
       </h2>
