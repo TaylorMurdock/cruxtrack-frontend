@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import { FaTrash, FaEdit } from "react-icons/fa";
 
 // Define the JournalEntry interface
 interface JournalEntry {
@@ -19,45 +20,146 @@ function formatDate(dateString: string) {
 }
 
 function EntryDetails() {
-  // Get the "id" parameter from the URL using React Router's useParams hook
   const { id } = useParams<{ id: string }>();
-  // Create state to store the journal entry
   const [journalEntry, setJournalEntry] = useState<JournalEntry | null>(null);
+  const [isEditing, setIsEditing] = useState(false); // State to track whether edit form should be displayed
+  const [editedEntry, setEditedEntry] = useState<JournalEntry | null>(null); // State to store edited entry
 
-  // Use useEffect to fetch the journal entry data when the component mounts
   useEffect(() => {
     const fetchJournalEntry = async () => {
       try {
-        // Make a GET request to fetch the journal entry by its ID
         const response = await fetch(`http://localhost:5000/journal/${id}`);
         if (response.ok) {
-          // If the response is successful, parse the JSON data and set it in state
           const data = await response.json();
           setJournalEntry(data);
         } else {
-          // Handle the case where the request fails
           console.error("Failed to fetch journal entry.");
         }
       } catch (error) {
-        // Handle any errors that occur during the fetch
         console.error("Error fetching journal entry:", error);
       }
     };
 
-    // Call the fetchJournalEntry function when the "id" parameter changes
     fetchJournalEntry();
   }, [id]);
 
+  const handleDelete = async () => {
+    try {
+      const response = await fetch(`http://localhost:5000/journal/${id}`, {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+
+      if (response.status === 204) {
+        // Remove the entry from UI and reset journalEntry to null after successful deletion
+        setJournalEntry(null);
+
+        // Navigate to the "/" route after successful deletion
+        window.location.href = "/";
+      } else {
+        console.error(
+          "Failed to delete journal entry. Server returned status: " +
+            response.status
+        );
+      }
+    } catch (error) {
+      console.error("Error deleting journal entry:", error);
+    }
+  };
+
+  const handleEditClick = () => {
+    // Toggle the isEditing state
+    setIsEditing((prevIsEditing) => !prevIsEditing);
+
+    // Initialize the editedEntry with the current journalEntry data when opening the form
+    if (!isEditing) {
+      setEditedEntry(journalEntry);
+    }
+  };
+
+  const handleEditSubmit = async () => {
+    try {
+      const response = await fetch(`http://localhost:5000/journal/${id}`, {
+        method: "PUT", // Use the PUT method for editing
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(editedEntry), // Send the edited data to the server
+      });
+
+      if (response.ok) {
+        // Update the UI with the edited data
+        setJournalEntry(editedEntry);
+
+        // Hide the edit form
+        setIsEditing(false);
+      } else {
+        console.error(
+          "Failed to edit journal entry. Server returned status: " +
+            response.status
+        );
+      }
+    } catch (error) {
+      console.error("Error editing journal entry:", error);
+    }
+  };
+
   return (
     <div>
-      {/* Render the journal entry details if it exists */}
       {journalEntry && (
         <div>
           <h2>
-            {/* Display the entry name and formatted date */}
             {journalEntry.entryName} {formatDate(journalEntry.date)}
+            <button onClick={handleDelete}>
+              <FaTrash />
+            </button>
+            <button onClick={handleEditClick}>
+              <FaEdit />
+            </button>
           </h2>
           <p>{journalEntry.description}</p>
+        </div>
+      )}
+
+      {isEditing && (
+        <div>
+          <h2>Edit Journal Entry</h2>
+          <form>
+            <div>
+              <label htmlFor="entryName">Entry Name:</label>
+              <input
+                type="text"
+                id="entryName"
+                name="entryName"
+                value={editedEntry?.entryName || ""}
+                onChange={(e) =>
+                  setEditedEntry({
+                    ...(editedEntry as JournalEntry), // Type assertion
+                    entryName: e.target.value,
+                  })
+                }
+              />
+            </div>
+            <div>
+              <label htmlFor="description">Description:</label>
+              <textarea
+                id="description"
+                name="description"
+                value={editedEntry?.description || ""}
+                onChange={(e) =>
+                  setEditedEntry({
+                    ...(editedEntry as JournalEntry), // Type assertion
+                    description: e.target.value,
+                  })
+                }
+              />
+            </div>
+            <button type="button" onClick={handleEditSubmit}>
+              Save
+            </button>
+          </form>
         </div>
       )}
     </div>
