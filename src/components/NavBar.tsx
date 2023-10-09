@@ -6,11 +6,10 @@ import { RiLogoutBoxRFill } from "react-icons/ri";
 import { Link } from "react-router-dom";
 import "tailwindcss/tailwind.css";
 
-function NavBar() {
+function NavBar({ onLogout }: { onLogout: () => void }) {
   return (
     <nav className="bg-gradient-to-r from-green-900 to-green-600 p-4">
       <div className="container mx-auto flex flex-col sm:flex-row items-center justify-between">
-        {/* Navigation Buttons */}
         <div className="space-x-10 mt-4 sm:mt-0">
           <Link
             to="/routes"
@@ -37,7 +36,7 @@ function NavBar() {
             </button>
           </Link>
         </div>
-        {/* CruxTrack Link */}
+
         <Link
           to="/"
           className="text-white text-2xl font-bold hover:text-light-brown hover:underline-none flex items-center"
@@ -49,19 +48,17 @@ function NavBar() {
           />
           CruxTrack
         </Link>
-        {/* Utility Buttons */}
+
         <div className="space-x-10 mt-4 sm:mt-0 ml-10">
           <button className="text-white hover:text-light-brown mr-4">
             <CgDarkMode className="text-2xl" />
           </button>
-          <Link
-            to="/login"
+          <button
+            onClick={onLogout} // Call the onLogout function when the button is clicked
             className="text-white text-2xl hover:text-light-brown"
           >
-            <button>
-              <RiLogoutBoxRFill className="text-2xl" />
-            </button>
-          </Link>
+            <RiLogoutBoxRFill className="text-2xl" />
+          </button>
         </div>
       </div>
     </nav>
