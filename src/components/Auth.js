@@ -45,7 +45,7 @@ function AuthComponent({ onLogin, onSignup, onLogout }) {
         body: JSON.stringify({ username, password }),
       };
 
-      const response = await fetch(`${apiUrl}/signup`, requestOptions);
+      const response = await fetch(`${apiUrl}/user/signup`, requestOptions);
 
       if (response.ok) {
         //  successful signup
