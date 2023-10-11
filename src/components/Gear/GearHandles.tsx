@@ -52,8 +52,8 @@ function GearHandles() {
     }
 
     // Get the stored token from cookies
-    const token = Cookies.get("token");
-
+    const token = Cookies.get("token")?.replace("Bearer", "").trim();
+    console.log(token);
     // Check if the token exists
     if (!token) {
       console.error("Token not found in cookies. Please log in.");
@@ -68,7 +68,7 @@ function GearHandles() {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`, // Ensure the JWT token is included in the headers
+          Authorization: token,
         },
         body: JSON.stringify({
           item: newGearItem.item,
