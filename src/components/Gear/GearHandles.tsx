@@ -3,6 +3,7 @@ import GearForm from "./GearForm";
 import GearList from "./GearList";
 import { FaPlus } from "react-icons/fa";
 import "react-datepicker/dist/react-datepicker.css";
+import Cookies from "js-cookie";
 
 interface GearItem {
   id: number;
@@ -21,7 +22,11 @@ function GearHandles() {
   }, []);
 
   const fetchGearData = () => {
-    fetch("http://localhost:5000/gear/")
+    fetch("http://localhost:5000/gear/", {
+      headers: {
+        Authorization: `Bearer ${Cookies.get("token")}`,
+      },
+    })
       .then((response) => response.json())
       .then((data: GearItem[]) => setGearData(data))
       .catch((error) => console.error("Error fetching gear data:", error));
@@ -46,17 +51,24 @@ function GearHandles() {
       return;
     }
 
-    const formattedDate = selectedDate.toISOString();
+    // Get the stored token from cookies
+    const token = Cookies.get("token");
 
-    // Get the stored token from localStorage
-    const token = localStorage.getItem("authToken");
+    // Check if the token exists
+    if (!token) {
+      console.error("Token not found in cookies. Please log in.");
+      // Handle this error condition as needed (e.g., redirect to the login page)
+      return;
+    }
+
+    const formattedDate = selectedDate.toISOString();
 
     try {
       const gearResponse = await fetch(`http://localhost:5000/gear/`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`, // Include the JWT token in the headers
+          Authorization: `Bearer ${token}`, // Ensure the JWT token is included in the headers
         },
         body: JSON.stringify({
           item: newGearItem.item,

@@ -24,10 +24,20 @@ function AuthComponent({ onLogin, onSignup, onLogout }) {
       const data = await response.json();
 
       // Store JWT in cookies
-      Cookies.set("token", data.token);
+      Cookies.set("token", `Bearer ${data.token}`);
+      Cookies.set("userId", data.userId);
 
       // Successful login
       console.log("Login successful: User logged in");
+
+      // Check if the token is correctly formatted
+      const token = Cookies.get("token");
+      const tokenParts = token.split(" ");
+      if (tokenParts.length === 2 && tokenParts[0] === "Bearer") {
+        console.log("Token is correctly formatted.");
+      } else {
+        console.error("Token is incorrectly formatted.");
+      }
 
       // Call the login callback function
       onLogin();
@@ -64,8 +74,9 @@ function AuthComponent({ onLogin, onSignup, onLogout }) {
 
   const handleLogout = async () => {
     try {
-      // Remove JWT from cookies
+      // Remove JWT and user ID from cookies
       Cookies.remove("token");
+      Cookies.remove("userId");
 
       // Successful logout
       console.log("Logout successful: User logged out");
