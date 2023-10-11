@@ -48,11 +48,15 @@ function GearHandles() {
 
     const formattedDate = selectedDate.toISOString();
 
+    // Get the stored token from localStorage
+    const token = localStorage.getItem("authToken");
+
     try {
       const gearResponse = await fetch(`http://localhost:5000/gear/`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`, // Include the JWT token in the headers
         },
         body: JSON.stringify({
           item: newGearItem.item,
@@ -72,34 +76,6 @@ function GearHandles() {
     } catch (error) {
       console.error("Error adding gear item:", error);
     }
-  };
-
-  const handleDelete = async (id: number) => {
-    try {
-      const response = await fetch(`http://localhost:5000/gear/${id}`, {
-        method: "DELETE",
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
-
-      if (response.status === 204) {
-        setGearData(gearData.filter((gearItem) => gearItem.id !== id));
-      } else {
-        console.error(
-          "Failed to delete gear item. Server returned status: " +
-            response.status
-        );
-      }
-    } catch (error) {
-      console.error("Error deleting gear item:", error);
-    }
-  };
-
-  // Define a handleEdit function to handle editing gear items
-  const handleEdit = (id: number) => {
-    // Implement your logic for editing gear items here
-    // You can set the state to enter edit mode or open a modal for editing
   };
 
   return (
@@ -122,12 +98,7 @@ function GearHandles() {
         />
       )}
 
-      <GearList
-        gearData={gearData}
-        showEditIcons={false} // Assuming this should be false for GearHandles
-        handleDelete={handleDelete}
-        handleEdit={handleEdit} // Pass the handleEdit function
-      />
+      <GearList gearData={gearData} />
     </div>
   );
 }

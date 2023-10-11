@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import Cookies from "js-cookie";
 
-const apiUrl = "http://localhost:5000"; //backend URL
+const apiUrl = "http://localhost:5000"; // Backend URL
 
 function AuthComponent({ onLogin, onSignup, onLogout }) {
   const [username, setUsername] = useState("");
@@ -9,7 +9,7 @@ function AuthComponent({ onLogin, onSignup, onLogout }) {
 
   const handleLogin = async () => {
     try {
-      const response = await fetch("http://localhost:5000/user/login", {
+      const response = await fetch(`${apiUrl}/user/login`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -26,13 +26,13 @@ function AuthComponent({ onLogin, onSignup, onLogout }) {
       // Store JWT in cookies
       Cookies.set("token", data.token);
 
-      // successful login
+      // Successful login
       console.log("Login successful: User logged in");
 
       // Call the login callback function
       onLogin();
     } catch (error) {
-      // login error
+      // Login error
       console.error("Login error:", error);
     }
   };
@@ -48,7 +48,7 @@ function AuthComponent({ onLogin, onSignup, onLogout }) {
       const response = await fetch(`${apiUrl}/user/signup`, requestOptions);
 
       if (response.ok) {
-        //  successful signup
+        // Successful signup
         console.log("Signup successful: User registered");
 
         // Call the signup callback function
@@ -57,7 +57,7 @@ function AuthComponent({ onLogin, onSignup, onLogout }) {
         throw new Error(`HTTP error! Status: ${response.status}`);
       }
     } catch (error) {
-      //  signup error
+      // Signup error
       console.error("Signup error:", error);
     }
   };
@@ -67,14 +67,13 @@ function AuthComponent({ onLogin, onSignup, onLogout }) {
       // Remove JWT from cookies
       Cookies.remove("token");
 
-      //  successful logout
-
+      // Successful logout
       console.log("Logout successful: User logged out");
 
       // Call the logout callback function
       onLogout();
     } catch (error) {
-      //  logout error
+      // Logout error
       console.error("Logout error:", error);
     }
   };

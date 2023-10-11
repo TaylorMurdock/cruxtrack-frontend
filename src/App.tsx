@@ -4,7 +4,6 @@ import React, { useState, useEffect } from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import Dashboard from "./components/Dashboard/Dashboard";
 import NavBar from "./components/NavBar";
-import EntryDetails from "./components/Journal/EntryDetails";
 import Auth from "./components/Auth";
 import Cookies from "js-cookie";
 
@@ -76,30 +75,6 @@ function App({ onLogin, onSignup, onLogout }: AppProps) {
                     />
                     <p>Not Authenticated</p>
                   </>
-                )
-              }
-            />
-            <Route
-              path="/journal/:id"
-              element={
-                authenticated ? (
-                  <EntryDetails />
-                ) : (
-                  <Auth
-                    onLogin={() => {
-                      setAuthenticated(true);
-                      if (onLogin) {
-                        onLogin();
-                      }
-                    }}
-                    onSignup={() => {
-                      setAuthenticated(true);
-                      if (onSignup) {
-                        onSignup();
-                      }
-                    }}
-                    onLogout={handleLogout}
-                  />
                 )
               }
             />

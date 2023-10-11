@@ -1,5 +1,4 @@
 import React from "react";
-import { FaTrash, FaEdit } from "react-icons/fa";
 
 // Define a function to format the date
 function formatDate(dateString: string) {
@@ -12,9 +11,6 @@ function formatDate(dateString: string) {
 
 interface GearListProps {
   gearData: { id: number; item: string; dateBought: string }[];
-  showEditIcons: boolean;
-  handleDelete: (id: number) => void;
-  handleEdit: (id: number) => void;
 }
 
 function GearList(props: GearListProps) {
@@ -26,16 +22,6 @@ function GearList(props: GearListProps) {
             Item: {gearItem.item} - Date Bought:
             {formatDate(gearItem.dateBought)}
           </span>
-          {props.showEditIcons && (
-            <>
-              <button onClick={() => props.handleDelete(gearItem.id)}>
-                <FaTrash />
-              </button>
-              <button onClick={() => props.handleEdit(gearItem.id)}>
-                <FaEdit />
-              </button>
-            </>
-          )}
         </li>
       ))}
     </ul>
