@@ -28,7 +28,7 @@ function GearHandles() {
 
     fetch("http://localhost:5000/gear/", {
       headers: {
-        Authorization: `Bearer ${token}`, // Use the extracted token
+        Authorization: `${token}`, // Use the extracted token
       },
     })
       .then((response) => response.json())
