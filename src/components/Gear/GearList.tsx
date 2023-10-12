@@ -14,12 +14,16 @@ interface GearListProps {
 }
 
 function GearList(props: GearListProps) {
+  if (!Array.isArray(props.gearData)) {
+    return <p>No gear data available.</p>;
+  }
+
   return (
     <ul>
       {props.gearData.map((gearItem) => (
         <li key={gearItem.id}>
           <span>
-            Item: {gearItem.item} - Date Bought:
+            Item: {gearItem.item} - Date Bought:{" "}
             {formatDate(gearItem.dateBought)}
           </span>
         </li>
@@ -27,4 +31,5 @@ function GearList(props: GearListProps) {
     </ul>
   );
 }
+
 export default GearList;

@@ -22,9 +22,13 @@ function GearHandles() {
   }, []);
 
   const fetchGearData = () => {
+    // Get the stored token from cookies
+    const token = Cookies.get("token")?.replace("Bearer", "").trim();
+    console.log("Token:", token); // Log the token
+
     fetch("http://localhost:5000/gear/", {
       headers: {
-        Authorization: `Bearer ${Cookies.get("token")}`,
+        Authorization: `Bearer ${token}`, // Use the extracted token
       },
     })
       .then((response) => response.json())
