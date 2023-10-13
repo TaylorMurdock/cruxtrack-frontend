@@ -48,6 +48,11 @@ function AuthComponent({ onLogin, onSignup, onLogout }) {
   };
 
   const handleSignup = async () => {
+    if (!username || !password) {
+      console.error("Username and password are required.");
+      return;
+    }
+
     try {
       const requestOptions = {
         method: "POST",

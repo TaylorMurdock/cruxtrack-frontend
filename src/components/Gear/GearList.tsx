@@ -1,4 +1,5 @@
 import React from "react";
+import GearItem from "./GearItem"; // Import the GearItem component
 
 // Define a function to format the date
 function formatDate(dateString: string) {
@@ -10,7 +11,12 @@ function formatDate(dateString: string) {
 }
 
 interface GearListProps {
-  gearData: { id: number; item: string; dateBought: string }[];
+  gearData: {
+    id: number;
+    item: string;
+    dateBought: string;
+  }[];
+  onDelete: (itemId: number) => void;
 }
 
 function GearList(props: GearListProps) {
@@ -21,12 +27,18 @@ function GearList(props: GearListProps) {
   return (
     <ul>
       {props.gearData.map((gearItem) => (
-        <li key={gearItem.id}>
-          <span>
-            Item: {gearItem.item} - Date Bought:{" "}
-            {formatDate(gearItem.dateBought)}
-          </span>
-        </li>
+        <GearItem
+          key={gearItem.id}
+          gearItem={{
+            ...gearItem,
+            dateBought: formatDate(gearItem.dateBought), // Format the date using formatDate function
+          }}
+          showEditIcons={true}
+          onDelete={props.onDelete}
+          onEdit={(itemId, newItem, newDateBought) => {
+            // Handle editing here, you can implement the logic to send the updated data to the server.
+          }}
+        />
       ))}
     </ul>
   );

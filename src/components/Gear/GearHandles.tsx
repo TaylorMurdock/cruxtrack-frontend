@@ -1,3 +1,4 @@
+// GearHandles.tsx
 import React, { useState, useEffect, ChangeEvent, FormEvent } from "react";
 import GearForm from "./GearForm";
 import GearList from "./GearList";
@@ -45,6 +46,30 @@ function GearHandles() {
   const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setNewGearItem({ ...newGearItem, [name]: value });
+  };
+
+  const handleDelete = async (itemId: number) => {
+    // Get the stored token from cookies
+    const token = Cookies.get("token")?.replace("Bearer", "").trim();
+
+    try {
+      const response = await fetch(`http://localhost:5000/gear/${itemId}`, {
+        method: "DELETE",
+        headers: {
+          Authorization: `${token}`,
+        },
+      });
+
+      if (response.status === 204) {
+        // Delete was successful
+        const updatedGearData = gearData.filter((item) => item.id !== itemId);
+        setGearData(updatedGearData);
+      } else {
+        console.error("Failed to delete gear item.");
+      }
+    } catch (error) {
+      console.error("Error deleting gear item:", error);
+    }
   };
 
   const handleSubmit = async (e: FormEvent) => {
@@ -102,7 +127,6 @@ function GearHandles() {
           <FaPlus />
         </button>
       </h2>
-
       {isFormVisible && (
         <GearForm
           item={newGearItem}
@@ -113,8 +137,7 @@ function GearHandles() {
           buttonText="Add"
         />
       )}
-
-      <GearList gearData={gearData} />
+      <GearList gearData={gearData} onDelete={handleDelete} />
     </div>
   );
 }

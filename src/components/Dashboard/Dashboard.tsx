@@ -1,21 +1,24 @@
+// Dashboard.tsx
 import React, { useEffect, useState } from "react";
-import GearList from "../Gear/GearList"; // Import the GearList component
+import GearList from "../Gear/GearList";
 import GearHandles from "../Gear/GearHandles";
-import Cookies from "js-cookie"; // Import the js-cookie library
+import Cookies from "js-cookie";
 
 function Dashboard() {
   const [gearData, setGearData] = useState([]);
 
+  // Dummy onDelete function, as it's not needed in the Dashboard
+  const handleDelete = (itemId: number) => {
+    // Do nothing or display a message if needed
+  };
+
   useEffect(() => {
-    // Function to fetch gear data and authenticate using JWT token
     const fetchGearData = async () => {
       try {
-        // Retrieve the JWT token from the cookies
         const token = Cookies.get("token");
-
-        const response = await fetch("URL_TO_FETCH_GEAR_DATA", {
+        const response = await fetch("http://localhost:5000/gear", {
           headers: {
-            Authorization: `Bearer ${token}`, // Provide the JWT token in the request headers
+            Authorization: `${token}`,
           },
         });
 
@@ -24,21 +27,19 @@ function Dashboard() {
         }
 
         const data = await response.json();
-        return data;
+        setGearData(data);
       } catch (error) {
         console.error("Error fetching gear data:", error);
-        return [];
       }
     };
 
-    // Call the fetchGearData function to fetch and update gear data
-    fetchGearData().then((data) => setGearData(data));
-  }, []); // Empty dependency array ensures this effect runs once on component mount
+    fetchGearData();
+  }, []);
 
   return (
     <div>
       <h1>Dashboard</h1>
-      <GearList gearData={gearData} />
+      <GearList gearData={gearData} onDelete={handleDelete} />
       <GearHandles />
     </div>
   );
