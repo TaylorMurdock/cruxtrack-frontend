@@ -31,9 +31,10 @@ function App({ onLogin, onSignup, onLogout }: AppProps) {
           setUsername(storedUsername);
         }
       }
-
-      setLoading(false);
     }
+
+    // Move setLoading(false) here
+    setLoading(false);
   }, []);
 
   const handleLogout = async () => {
