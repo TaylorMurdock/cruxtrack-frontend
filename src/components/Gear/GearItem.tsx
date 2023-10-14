@@ -23,10 +23,6 @@ function GearItem(props: GearItemProps) {
     setIsEditing(true);
   };
 
-  const handleCancelEdit = () => {
-    setIsEditing(false);
-  };
-
   const handleSaveEdit = () => {
     // Call the onEdit prop to update the item
     props.onEdit(props.gearItem.id, editedItem, editedDateBought);

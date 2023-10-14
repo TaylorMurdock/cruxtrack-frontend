@@ -12,6 +12,15 @@ function Dashboard() {
     // Do nothing or display a message if needed
   };
 
+  // Dummy onEdit function, as it's not needed in the Dashboard
+  const handleEdit = (
+    itemId: number,
+    newItem: string,
+    newDateBought: string
+  ) => {
+    // Do nothing or display a message if needed
+  };
+
   useEffect(() => {
     const fetchGearData = async () => {
       try {
@@ -39,7 +48,11 @@ function Dashboard() {
   return (
     <div>
       <h1>Dashboard</h1>
-      <GearList gearData={gearData} onDelete={handleDelete} />
+      <GearList
+        gearData={gearData}
+        onDelete={handleDelete}
+        onEdit={handleEdit}
+      />
       <GearHandles />
     </div>
   );

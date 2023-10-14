@@ -119,6 +119,45 @@ function GearHandles() {
     }
   };
 
+  const handleEdit = async (
+    itemId: number,
+    newItem: string,
+    newDateBought: string
+  ) => {
+    // Get the stored token from cookies
+    const token = Cookies.get("token")?.replace("Bearer", "").trim();
+
+    try {
+      const response = await fetch(`http://localhost:5000/gear/${itemId}`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `${token}`,
+        },
+        body: JSON.stringify({
+          item: newItem,
+          dateBought: newDateBought,
+        }),
+      });
+
+      if (response.status === 200) {
+        // Update was successful
+        const updatedGearData = gearData.map((item) => {
+          if (item.id === itemId) {
+            item.item = newItem;
+            item.dateBought = newDateBought;
+          }
+          return item;
+        });
+        setGearData(updatedGearData);
+      } else {
+        console.error("Failed to update gear item.");
+      }
+    } catch (error) {
+      console.error("Error updating gear item:", error);
+    }
+  };
+
   return (
     <div>
       <h2>
@@ -137,7 +176,11 @@ function GearHandles() {
           buttonText="Add"
         />
       )}
-      <GearList gearData={gearData} onDelete={handleDelete} />
+      <GearList
+        gearData={gearData}
+        onDelete={handleDelete}
+        onEdit={handleEdit}
+      />
     </div>
   );
 }

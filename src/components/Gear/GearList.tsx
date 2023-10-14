@@ -10,6 +10,8 @@ function formatDate(dateString: string) {
   return `${month}-${day}-${year}`; // Return the formatted date in MM-DD-YYYY format
 }
 
+// Import React and other dependencies as needed
+
 interface GearListProps {
   gearData: {
     id: number;
@@ -17,6 +19,7 @@ interface GearListProps {
     dateBought: string;
   }[];
   onDelete: (itemId: number) => void;
+  onEdit: (itemId: number, newItem: string, newDateBought: string) => void; // Add the onEdit prop
 }
 
 function GearList(props: GearListProps) {
@@ -35,9 +38,7 @@ function GearList(props: GearListProps) {
           }}
           showEditIcons={true}
           onDelete={props.onDelete}
-          onEdit={(itemId, newItem, newDateBought) => {
-            // Handle editing here, you can implement the logic to send the updated data to the server.
-          }}
+          onEdit={props.onEdit} // Pass the onEdit prop to GearItem
         />
       ))}
     </ul>
