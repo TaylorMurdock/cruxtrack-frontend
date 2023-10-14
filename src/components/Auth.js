@@ -25,7 +25,6 @@ function AuthComponent({ onLogin, onSignup, onLogout }) {
 
       // Store JWT in cookies without the "Bearer" prefix
       Cookies.set("token", data.token);
-      Cookies.set("userId", data.userId);
 
       // Successful login
       console.log("Login successful: User logged in");
@@ -60,7 +59,7 @@ function AuthComponent({ onLogin, onSignup, onLogout }) {
         // Extract the JWT token from the response and set it in a cookie
         const data = await response.json();
         Cookies.set("token", data.token);
-        Cookies.set("userId", data.userId);
+        Cookies.set("username", username);
 
         // Call the signup callback function (optional)
         onSignup();
