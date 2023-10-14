@@ -15,11 +15,11 @@ interface AppProps {
 function App({ onLogin, onSignup, onLogout }: AppProps) {
   const [authenticated, setAuthenticated] = useState(false);
   const [loading, setLoading] = useState<boolean>(true);
-  const [username, setUsername] = useState("");
+  // Remove or comment out the unused 'username' state
+  // const [username, setUsername] = useState("");
 
   useEffect(() => {
     const token = Cookies.get("token");
-    const storedUsername = Cookies.get("username");
 
     if (token) {
       const decodedToken = jwt_decode(token) as { exp: number | undefined };
@@ -27,14 +27,15 @@ function App({ onLogin, onSignup, onLogout }: AppProps) {
 
       if (decodedToken.exp && decodedToken.exp > currentTime) {
         setAuthenticated(true);
-        if (storedUsername) {
-          setUsername(storedUsername);
-        }
+        // Remove or comment out the 'setUsername' call
+        // if (storedUsername) {
+        //   setUsername(storedUsername);
+        // }
       }
-    }
 
-    // Move setLoading(false) here
-    setLoading(false);
+      // Move setLoading(false) here
+      setLoading(false);
+    }
   }, []);
 
   const handleLogout = async () => {
@@ -62,14 +63,14 @@ function App({ onLogin, onSignup, onLogout }: AppProps) {
                 authenticated ? (
                   <>
                     <Dashboard />
-                    <p>Signed In: {username}</p>
                   </>
                 ) : (
                   <>
                     <Auth
                       onLogin={(username: string) => {
                         setAuthenticated(true);
-                        setUsername(username);
+                        // Remove or comment out the 'setUsername' call
+                        // setUsername(username);
                         if (onLogin) {
                           onLogin(username);
                         }
