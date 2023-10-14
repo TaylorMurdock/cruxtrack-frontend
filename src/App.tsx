@@ -31,9 +31,9 @@ function App({ onLogin, onSignup, onLogout }: AppProps) {
           setUsername(storedUsername); // Set the username from the cookie
         }
       }
-
-      setLoading(false);
     }
+
+    setLoading(false); // Move this outside the token check
   }, []);
 
   const handleLogout = async () => {
@@ -81,7 +81,6 @@ function App({ onLogin, onSignup, onLogout }: AppProps) {
                       }}
                       onLogout={handleLogout}
                     />
-                    <p>Not Authenticated</p>
                   </>
                 )
               }

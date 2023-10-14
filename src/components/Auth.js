@@ -76,23 +76,6 @@ function AuthComponent({ onLogin, onSignup, onLogout }) {
     }
   };
 
-  const handleLogout = async () => {
-    try {
-      // Remove JWT and user ID from cookies
-      Cookies.remove("token");
-      Cookies.remove("userId");
-
-      // Successful logout
-      console.log("Logout successful: User logged out");
-
-      // Call the logout callback function
-      onLogout();
-    } catch (error) {
-      // Logout error
-      console.error("Logout error:", error);
-    }
-  };
-
   return (
     <div>
       <input
@@ -109,7 +92,6 @@ function AuthComponent({ onLogin, onSignup, onLogout }) {
       />
       <button onClick={handleLogin}>Login</button>
       <button onClick={handleSignup}>Signup</button>
-      <button onClick={handleLogout}>Logout</button>
     </div>
   );
 }
