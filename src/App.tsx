@@ -4,7 +4,7 @@ import Dashboard from "./components/Dashboard/Dashboard";
 import NavBar from "./components/NavBar";
 import Auth from "./components/Auth";
 import Cookies from "js-cookie";
-import jwt_decode from "jwt-decode"; // Import JWT decoding library
+import jwt_decode from "jwt-decode";
 
 interface AppProps {
   onLogin?: (username: string) => void;
@@ -15,31 +15,31 @@ interface AppProps {
 function App({ onLogin, onSignup, onLogout }: AppProps) {
   const [authenticated, setAuthenticated] = useState(false);
   const [loading, setLoading] = useState<boolean>(true);
-  const [username, setUsername] = useState(""); // Add state for the username
+  const [username, setUsername] = useState("");
 
   useEffect(() => {
     const token = Cookies.get("token");
-    const storedUsername = Cookies.get("username"); // Retrieve the stored username
+    const storedUsername = Cookies.get("username");
 
     if (token) {
       const decodedToken = jwt_decode(token) as { exp: number | undefined };
-      const currentTime = Date.now() / 1000; // Convert to seconds
+      const currentTime = Date.now() / 1000;
 
       if (decodedToken.exp && decodedToken.exp > currentTime) {
         setAuthenticated(true);
         if (storedUsername) {
-          setUsername(storedUsername); // Set the username from the cookie
+          setUsername(storedUsername);
         }
       }
-    }
 
-    setLoading(false); // Move this outside the token check
+      setLoading(false);
+    }
   }, []);
 
   const handleLogout = async () => {
     Cookies.remove("token");
     Cookies.remove("userId");
-    Cookies.remove("username"); // Remove the stored username
+    Cookies.remove("username");
     setAuthenticated(false);
 
     if (onLogout) {
@@ -50,7 +50,7 @@ function App({ onLogin, onSignup, onLogout }: AppProps) {
   return (
     <Router>
       <div className="App">
-        <NavBar onLogout={handleLogout} />
+        <NavBar onLogout={handleLogout} authenticated={authenticated} />
         {loading ? (
           <p>Loading...</p>
         ) : (
@@ -61,7 +61,7 @@ function App({ onLogin, onSignup, onLogout }: AppProps) {
                 authenticated ? (
                   <>
                     <Dashboard />
-                    <p>Signed In: {username}</p> {/* Display the username */}
+                    <p>Signed In: {username}</p>
                   </>
                 ) : (
                   <>
