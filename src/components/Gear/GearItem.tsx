@@ -34,7 +34,7 @@ function GearItem(props: GearItemProps) {
   return (
     <li>
       <span>
-        Item: {props.gearItem.item} - Date Bought: {props.gearItem.dateBought}
+        {props.gearItem.item} Date Bought: {props.gearItem.dateBought}
       </span>
       {props.showEditIcons && (
         <button onClick={handleEditClick}>
