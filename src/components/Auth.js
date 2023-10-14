@@ -1,6 +1,8 @@
 import { useState } from "react";
 import Cookies from "js-cookie";
 
+import cruxtrackLoginBg from "../images/cruxtrackLoginBg.jpg";
+
 const apiUrl = "http://localhost:5000"; // Backend URL
 
 function AuthComponent({ onLogin, onSignup, onLogout }) {
@@ -76,21 +78,46 @@ function AuthComponent({ onLogin, onSignup, onLogout }) {
   };
 
   return (
-    <div>
-      <input
-        type="text"
-        placeholder="Username"
-        value={username}
-        onChange={(e) => setUsername(e.target.value)}
-      />
-      <input
-        type="password"
-        placeholder="Password"
-        value={password}
-        onChange={(e) => setPassword(e.target.value)}
-      />
-      <button onClick={handleLogin}>Login</button>
-      <button onClick={handleSignup}>Signup</button>
+    <div
+      className="min-h-screen flex items-center justify-center"
+      style={{
+        backgroundImage: `url(${cruxtrackLoginBg})`, // Use the imported image
+        backgroundSize: "cover",
+      }}
+    >
+      <div className="bg-white p-8 rounded shadow-md w-96 space-y-4">
+        <h1 className="text-3xl font-semibold text-center text-green-600">
+          Welcome Back
+        </h1>
+        <input
+          type="text"
+          placeholder="Username"
+          value={username}
+          onChange={(e) => setUsername(e.target.value)}
+          className="w-full border-2 border-green-300 rounded px-3 py-2"
+        />
+        <input
+          type="password"
+          placeholder="Password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+          className="w-full border-2 border-green-300 rounded px-3 py-2"
+        />
+        <div className="flex justify-center">
+          <button
+            onClick={handleLogin}
+            className="bg-gradient-to-r from-green-900 to-green-600 text-white hover:bg-gradient-to-r hover:from-yellow-700 hover:via-yellow-550 hover:to-yellow-400 rounded-md px-4 py-2 mr-2"
+          >
+            Login
+          </button>
+          <button
+            onClick={handleSignup}
+            className="bg-gradient-to-r from-yellow-400 to-yellow-700 text-white hover:bg-gradient-to-r hover:from-green-600 hover:via-green-750 hover:to-green-900 rounded-md px-4 py-2"
+          >
+            Signup
+          </button>
+        </div>
+      </div>
     </div>
   );
 }
