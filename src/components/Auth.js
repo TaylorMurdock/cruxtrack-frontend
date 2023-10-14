@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import Cookies from "js-cookie";
 
 const apiUrl = "http://localhost:5000"; // Backend URL
@@ -23,21 +23,12 @@ function AuthComponent({ onLogin, onSignup, onLogout }) {
 
       const data = await response.json();
 
-      // Store JWT in cookies
-      Cookies.set("token", `Bearer ${data.token}`);
+      // Store JWT in cookies without the "Bearer" prefix
+      Cookies.set("token", data.token);
       Cookies.set("userId", data.userId);
 
       // Successful login
       console.log("Login successful: User logged in");
-
-      // Check if the token is correctly formatted
-      const token = Cookies.get("token");
-      const tokenParts = token.split(" ");
-      if (tokenParts.length === 2 && tokenParts[0] === "Bearer") {
-        console.log("Token is correctly formatted.");
-      } else {
-        console.error("Token is incorrectly formatted.");
-      }
 
       // Call the login callback function
       onLogin();

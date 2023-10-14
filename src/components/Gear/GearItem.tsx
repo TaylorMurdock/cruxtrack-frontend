@@ -1,5 +1,8 @@
 import React, { useState } from "react";
-import GearForm from "./GearForm"; // The create form
+
+import EditGearForm from "./EditGearForm";
+import { AiFillEdit } from "react-icons/ai";
+import { BsFillTrashFill } from "react-icons/bs";
 
 interface GearItemProps {
   gearItem: {
@@ -9,7 +12,7 @@ interface GearItemProps {
   };
   showEditIcons: boolean;
   onDelete: (itemId: number) => void;
-  onEdit: (itemId: number, newItem: string, newDateBought: string) => void; // Add the onEdit prop
+  onEdit: (itemId: number, newItem: string, newDateBought: string) => void;
 }
 
 function GearItem(props: GearItemProps) {
@@ -20,11 +23,10 @@ function GearItem(props: GearItemProps) {
   );
 
   const handleEditClick = () => {
-    setIsEditing(true);
+    setIsEditing(!isEditing);
   };
 
   const handleSaveEdit = () => {
-    // Call the onEdit prop to update the item
     props.onEdit(props.gearItem.id, editedItem, editedDateBought);
     setIsEditing(false);
   };
@@ -34,26 +36,26 @@ function GearItem(props: GearItemProps) {
       <span>
         Item: {props.gearItem.item} - Date Bought: {props.gearItem.dateBought}
       </span>
-      {props.showEditIcons && !isEditing && (
-        <button onClick={handleEditClick}>Edit</button>
+      {props.showEditIcons && (
+        <button onClick={handleEditClick}>
+          {isEditing ? <BsFillTrashFill /> : <AiFillEdit />}
+        </button>
       )}
-      {
-        isEditing ? (
-          <GearForm
-            item={{ item: editedItem, dateBought: editedDateBought }}
-            selectedDate={new Date(editedDateBought)}
-            handleInputChange={(e) => setEditedItem(e.target.value)}
-            handleDateChange={(date) =>
-              setEditedDateBought(date?.toDateString() || "")
-            }
-            handleSubmit={handleSaveEdit}
-            buttonText="Save"
-          />
-        ) : null /* Conditionally render the edit form */
-      }
+      {isEditing ? (
+        <EditGearForm
+          item={{ item: editedItem, dateBought: editedDateBought }}
+          selectedDate={new Date(editedDateBought)}
+          handleInputChange={(e) => setEditedItem(e.target.value)}
+          handleDateChange={(date) =>
+            setEditedDateBought(date?.toDateString() || "")
+          }
+          handleSubmit={handleSaveEdit}
+          buttonText="Save"
+        />
+      ) : null}
       {props.showEditIcons && !isEditing && (
         <button onClick={() => props.onDelete(props.gearItem.id)}>
-          Delete
+          <BsFillTrashFill />
         </button>
       )}
     </li>

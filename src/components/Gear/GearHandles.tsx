@@ -1,8 +1,8 @@
-// GearHandles.tsx
 import React, { useState, useEffect, ChangeEvent, FormEvent } from "react";
 import GearForm from "./GearForm";
 import GearList from "./GearList";
 import { FaPlus } from "react-icons/fa";
+import { AiFillEdit } from "react-icons/ai";
 import "react-datepicker/dist/react-datepicker.css";
 import Cookies from "js-cookie";
 
@@ -11,12 +11,16 @@ interface GearItem {
   item: string;
   dateBought: string;
 }
-
-function GearHandles() {
-  const [gearData, setGearData] = useState<GearItem[]>([]);
+interface GearHandlesProps {
+  gearData: GearItem[];
+}
+function GearHandles({ gearData: propGearData }: GearHandlesProps) {
+  const [gearData, setGearData] = useState<GearItem[]>(propGearData);
   const [isFormVisible, setIsFormVisible] = useState(false);
   const [newGearItem, setNewGearItem] = useState({ item: "", dateBought: "" });
   const [selectedDate, setSelectedDate] = useState<Date | null>(null);
+  const [isEditingItems, setIsEditingItems] = useState(false);
+  const [isEditingIconsVisible, setIsEditingIconsVisible] = useState(false); // Add new state variable
 
   useEffect(() => {
     fetchGearData();
@@ -29,7 +33,7 @@ function GearHandles() {
 
     fetch("http://localhost:5000/gear/", {
       headers: {
-        Authorization: `${token}`, // Use the extracted token
+        Authorization: `${token}`,
       },
     })
       .then((response) => response.json())
@@ -49,7 +53,6 @@ function GearHandles() {
   };
 
   const handleDelete = async (itemId: number) => {
-    // Get the stored token from cookies
     const token = Cookies.get("token")?.replace("Bearer", "").trim();
 
     try {
@@ -61,7 +64,6 @@ function GearHandles() {
       });
 
       if (response.status === 204) {
-        // Delete was successful
         const updatedGearData = gearData.filter((item) => item.id !== itemId);
         setGearData(updatedGearData);
       } else {
@@ -80,13 +82,11 @@ function GearHandles() {
       return;
     }
 
-    // Get the stored token from cookies
     const token = Cookies.get("token")?.replace("Bearer", "").trim();
     console.log(token);
-    // Check if the token exists
+
     if (!token) {
       console.error("Token not found in cookies. Please log in.");
-      // Handle this error condition as needed (e.g., redirect to the login page)
       return;
     }
 
@@ -124,7 +124,6 @@ function GearHandles() {
     newItem: string,
     newDateBought: string
   ) => {
-    // Get the stored token from cookies
     const token = Cookies.get("token")?.replace("Bearer", "").trim();
 
     try {
@@ -141,7 +140,6 @@ function GearHandles() {
       });
 
       if (response.status === 200) {
-        // Update was successful
         const updatedGearData = gearData.map((item) => {
           if (item.id === itemId) {
             item.item = newItem;
@@ -158,12 +156,20 @@ function GearHandles() {
     }
   };
 
+  const toggleEditingItems = () => {
+    setIsEditingItems(!isEditingItems);
+    setIsEditingIconsVisible(!isEditingItems); // Toggle isEditingIconsVisible as well
+  };
+
   return (
     <div>
       <h2>
         <span>Gear</span>
         <button onClick={toggleForm} className="ml-2">
           <FaPlus />
+        </button>
+        <button onClick={toggleEditingItems} className="ml-2">
+          <AiFillEdit />
         </button>
       </h2>
       {isFormVisible && (
@@ -180,6 +186,8 @@ function GearHandles() {
         gearData={gearData}
         onDelete={handleDelete}
         onEdit={handleEdit}
+        isEditing={isEditingItems}
+        isEditingIconsVisible={isEditingIconsVisible}
       />
     </div>
   );

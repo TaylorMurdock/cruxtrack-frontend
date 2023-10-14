@@ -1,4 +1,3 @@
-import React from "react";
 import GearItem from "./GearItem"; // Import the GearItem component
 
 // Define a function to format the date
@@ -10,8 +9,6 @@ function formatDate(dateString: string) {
   return `${month}-${day}-${year}`; // Return the formatted date in MM-DD-YYYY format
 }
 
-// Import React and other dependencies as needed
-
 interface GearListProps {
   gearData: {
     id: number;
@@ -19,14 +16,12 @@ interface GearListProps {
     dateBought: string;
   }[];
   onDelete: (itemId: number) => void;
-  onEdit: (itemId: number, newItem: string, newDateBought: string) => void; // Add the onEdit prop
+  onEdit: (itemId: number, newItem: string, newDateBought: string) => void;
+  isEditing: boolean;
+  isEditingIconsVisible: boolean; // Include isEditingIconsVisible in the props
 }
 
 function GearList(props: GearListProps) {
-  if (!Array.isArray(props.gearData)) {
-    return <p>No gear data available.</p>;
-  }
-
   return (
     <ul>
       {props.gearData.map((gearItem) => (
@@ -34,11 +29,11 @@ function GearList(props: GearListProps) {
           key={gearItem.id}
           gearItem={{
             ...gearItem,
-            dateBought: formatDate(gearItem.dateBought), // Format the date using formatDate function
+            dateBought: formatDate(gearItem.dateBought),
           }}
-          showEditIcons={true}
+          showEditIcons={props.isEditingIconsVisible} // Conditionally show the edit icons
           onDelete={props.onDelete}
-          onEdit={props.onEdit} // Pass the onEdit prop to GearItem
+          onEdit={props.onEdit}
         />
       ))}
     </ul>

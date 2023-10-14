@@ -7,7 +7,7 @@ import Cookies from "js-cookie";
 import jwt_decode from "jwt-decode"; // Import JWT decoding library
 
 interface AppProps {
-  onLogin?: () => void;
+  onLogin?: (username: string) => void;
   onSignup?: () => void;
   onLogout?: () => void;
 }
@@ -15,26 +15,31 @@ interface AppProps {
 function App({ onLogin, onSignup, onLogout }: AppProps) {
   const [authenticated, setAuthenticated] = useState(false);
   const [loading, setLoading] = useState<boolean>(true);
+  const [username, setUsername] = useState(""); // Add state for the username
 
   useEffect(() => {
     const token = Cookies.get("token");
+    const storedUsername = Cookies.get("username"); // Retrieve the stored username
 
     if (token) {
       const decodedToken = jwt_decode(token) as { exp: number | undefined };
       const currentTime = Date.now() / 1000; // Convert to seconds
 
-      // Check if the token is not expired
       if (decodedToken.exp && decodedToken.exp > currentTime) {
         setAuthenticated(true);
+        if (storedUsername) {
+          setUsername(storedUsername); // Set the username from the cookie
+        }
       }
-    }
 
-    setLoading(false);
+      setLoading(false);
+    }
   }, []);
 
   const handleLogout = async () => {
-    // Remove JWT from cookies
     Cookies.remove("token");
+    Cookies.remove("userId");
+    Cookies.remove("username"); // Remove the stored username
     setAuthenticated(false);
 
     if (onLogout) {
@@ -56,15 +61,16 @@ function App({ onLogin, onSignup, onLogout }: AppProps) {
                 authenticated ? (
                   <>
                     <Dashboard />
-                    <p>Authenticated</p>
+                    <p>Signed In: {username}</p> {/* Display the username */}
                   </>
                 ) : (
                   <>
                     <Auth
-                      onLogin={() => {
+                      onLogin={(username: string) => {
                         setAuthenticated(true);
+                        setUsername(username);
                         if (onLogin) {
-                          onLogin();
+                          onLogin(username);
                         }
                       }}
                       onSignup={() => {
