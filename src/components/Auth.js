@@ -59,7 +59,7 @@ function AuthComponent({ onLogin, onSignup, onLogout }) {
 
         // Extract the JWT token from the response and set it in a cookie
         const data = await response.json();
-        Cookies.set("token", `Bearer ${data.token}`);
+        Cookies.set("token", data.token);
         Cookies.set("userId", data.userId);
 
         // Call the signup callback function (optional)
