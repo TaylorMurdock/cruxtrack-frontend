@@ -13,8 +13,11 @@ interface GearFormProps {
 
 function GearForm(props: GearFormProps) {
   return (
-    <form onSubmit={props.handleSubmit}>
-      <label>
+    <form
+      onSubmit={props.handleSubmit}
+      className="fixed bottom-98 right-95 z-50"
+    >
+      <label className="mb-4 text-white">
         Item:
         <input
           type="text"
@@ -22,15 +25,17 @@ function GearForm(props: GearFormProps) {
           value={props.item.item}
           onChange={props.handleInputChange}
           required
+          className="block w-full mt-2 p-2 border rounded text-black"
         />
       </label>
-      <label>
+      <label className="mb-4 text-white">
         Date Bought:
         <DatePicker
           selected={props.selectedDate}
           onChange={props.handleDateChange}
           dateFormat="yyyy-MM-dd"
           placeholderText="Select a date"
+          className="block w-full mt-2 p-2 border rounded"
         />
       </label>
       <button type="submit">{props.buttonText}</button>

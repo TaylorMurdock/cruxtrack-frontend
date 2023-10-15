@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import GearHandles from "../Gear/GearHandles";
 import Cookies from "js-cookie";
+import "../../index.css";
 
 function Dashboard() {
   const [gearData, setGearData] = useState([]);
@@ -38,9 +39,9 @@ function Dashboard() {
   }, []);
 
   return (
-    <div>
-      <h1>Dashboard</h1>
-      {username && <p>Signed In: {username}</p>}
+    <div className="dashboard">
+      <h1 className="text-white">Dashboard</h1>
+      {username && <p className="text-white">Signed In: {username}</p>}
       <GearHandles gearData={gearData} />
     </div>
   );

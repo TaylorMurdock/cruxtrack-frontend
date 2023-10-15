@@ -32,10 +32,14 @@ function GearItem(props: GearItemProps) {
   };
 
   return (
-    <li>
-      <span>
-        {props.gearItem.item} Date Bought: {props.gearItem.dateBought}
-      </span>
+    <li className="flex my-8">
+      <div style={{ flex: 1 }}>
+        <span className="text-left">{props.gearItem.item}</span>
+      </div>
+      <div style={{ flex: 1, marginLeft: "250px" }}>
+        <span className="text-right">{props.gearItem.dateBought}</span>
+      </div>
+
       {props.showEditIcons && (
         <button onClick={handleEditClick}>
           {isEditing ? <BsFillTrashFill /> : <AiFillEdit />}
@@ -53,11 +57,6 @@ function GearItem(props: GearItemProps) {
           buttonText="Save"
         />
       ) : null}
-      {props.showEditIcons && !isEditing && (
-        <button onClick={() => props.onDelete(props.gearItem.id)}>
-          <BsFillTrashFill />
-        </button>
-      )}
     </li>
   );
 }

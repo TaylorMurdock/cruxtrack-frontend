@@ -5,15 +5,18 @@ import { FaPlus } from "react-icons/fa";
 import { AiFillEdit } from "react-icons/ai";
 import "react-datepicker/dist/react-datepicker.css";
 import Cookies from "js-cookie";
+import "../../index.css"; // Import the CSS file
 
 interface GearItem {
   id: number;
   item: string;
   dateBought: string;
 }
+
 interface GearHandlesProps {
   gearData: GearItem[];
 }
+
 function GearHandles({ gearData: propGearData }: GearHandlesProps) {
   const [gearData, setGearData] = useState<GearItem[]>(propGearData);
   const [isFormVisible, setIsFormVisible] = useState(false);
@@ -162,16 +165,7 @@ function GearHandles({ gearData: propGearData }: GearHandlesProps) {
   };
 
   return (
-    <div>
-      <h2>
-        <span>Gear</span>
-        <button onClick={toggleForm} className="ml-2">
-          <FaPlus />
-        </button>
-        <button onClick={toggleEditingItems} className="ml-2">
-          <AiFillEdit />
-        </button>
-      </h2>
+    <div className="gear-container">
       {isFormVisible && (
         <GearForm
           item={newGearItem}
@@ -182,13 +176,26 @@ function GearHandles({ gearData: propGearData }: GearHandlesProps) {
           buttonText="Add"
         />
       )}
-      <GearList
-        gearData={gearData}
-        onDelete={handleDelete}
-        onEdit={handleEdit}
-        isEditing={isEditingItems}
-        isEditingIconsVisible={isEditingIconsVisible}
-      />
+
+      <h1 className="fixed bottom-96 right-100 z-50">
+        <span>Gear</span>
+        <button onClick={toggleForm} className="ml-2">
+          <FaPlus />
+        </button>
+        <button onClick={toggleEditingItems} className="ml-2">
+          <AiFillEdit />
+        </button>
+      </h1>
+
+      <div className="gear-list-container">
+        <GearList
+          gearData={gearData}
+          onDelete={handleDelete}
+          onEdit={handleEdit}
+          isEditing={isEditingItems}
+          isEditingIconsVisible={isEditingIconsVisible}
+        />
+      </div>
     </div>
   );
 }

@@ -6,7 +6,15 @@ module.exports = {
   ],
 
   theme: {
-    extend: {},
+    extend: {
+      spacing: {
+        95: "13rem", // Or any other value you prefer
+        96: "16rem", // Or any other value you prefer
+        97: "18rem", // Or any other value you prefer
+        98: "19rem", // Or any other value you prefer
+        100: "23rem", // Or any other value you prefer
+      },
+    },
   },
   plugins: [],
 };
