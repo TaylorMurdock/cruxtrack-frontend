@@ -41,10 +41,16 @@ function GearItem(props: GearItemProps) {
       </div>
 
       {props.showEditIcons && (
-        <button onClick={handleEditClick}>
-          {isEditing ? <BsFillTrashFill /> : <AiFillEdit />}
-        </button>
+        <div className="space-x-2">
+          <button onClick={handleEditClick}>
+            {isEditing ? <AiFillEdit /> : <AiFillEdit />}
+          </button>
+          <button onClick={() => props.onDelete(props.gearItem.id)}>
+            <BsFillTrashFill />
+          </button>
+        </div>
       )}
+
       {isEditing ? (
         <EditGearForm
           item={{ item: editedItem, dateBought: editedDateBought }}

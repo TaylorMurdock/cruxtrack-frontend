@@ -13,8 +13,11 @@ interface EditGearFormProps {
 
 function EditGearForm(props: EditGearFormProps) {
   return (
-    <form onSubmit={props.handleSubmit}>
-      <label>
+    <form
+      onSubmit={props.handleSubmit}
+      className="fixed bottom-98 right-96 z-50"
+    >
+      <label className="mb-4 text-white">
         Item:
         <input
           type="text"
@@ -22,18 +25,22 @@ function EditGearForm(props: EditGearFormProps) {
           value={props.item.item}
           onChange={props.handleInputChange}
           required
+          className="block w-full mt-2 p-2 border rounded text-black"
         />
       </label>
-      <label>
-        Date Bought:
+      <label className="mb-4 text-white">
         <DatePicker
           selected={props.selectedDate}
           onChange={props.handleDateChange}
+          value={props.item.dateBought}
           dateFormat="yyyy-MM-dd"
           placeholderText="Select a date"
+          className="block w-full mt-2 p-2 border rounded text-black"
         />
       </label>
-      <button type="submit">{props.buttonText}</button>
+      <button className="text-white p-2" type="submit">
+        {props.buttonText}
+      </button>
     </form>
   );
 }

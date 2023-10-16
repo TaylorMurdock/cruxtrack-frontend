@@ -1,5 +1,6 @@
 import React, { useState, useEffect, ChangeEvent, FormEvent } from "react";
 import GearForm from "./GearForm";
+import EditGearForm from "./EditGearForm"; // Import the EditGearForm
 import GearList from "./GearList";
 import { FaPlus } from "react-icons/fa";
 import { AiFillEdit } from "react-icons/ai";
@@ -19,20 +20,19 @@ interface GearHandlesProps {
 
 function GearHandles({ gearData: propGearData }: GearHandlesProps) {
   const [gearData, setGearData] = useState<GearItem[]>(propGearData);
-  const [isFormVisible, setIsFormVisible] = useState(false);
+  const [isAddMode, setIsAddMode] = useState(false);
+  const [isEditingItems, setIsEditingItems] = useState(false);
   const [newGearItem, setNewGearItem] = useState({ item: "", dateBought: "" });
   const [selectedDate, setSelectedDate] = useState<Date | null>(null);
-  const [isEditingItems, setIsEditingItems] = useState(false);
-  const [isEditingIconsVisible, setIsEditingIconsVisible] = useState(false); // Add new state variable
+  const [editItemId, setEditItemId] = useState<number | null>(null);
+  const [isEditingIconsVisible, setIsEditingIconsVisible] = useState(false);
 
   useEffect(() => {
     fetchGearData();
   }, []);
 
   const fetchGearData = () => {
-    // Get the stored token from cookies
     const token = Cookies.get("token")?.replace("Bearer", "").trim();
-    console.log("Token:", token); // Log the token
 
     fetch("http://localhost:5000/gear/", {
       headers: {
@@ -44,10 +44,25 @@ function GearHandles({ gearData: propGearData }: GearHandlesProps) {
       .catch((error) => console.error("Error fetching gear data:", error));
   };
 
-  const toggleForm = () => {
-    setIsFormVisible(!isFormVisible);
+  const toggleAddMode = () => {
+    if (isEditingItems) {
+      // If "Edit" mode is open, close it
+      setIsEditingItems(false);
+    }
+    setIsAddMode(!isAddMode);
+    setEditItemId(null);
     setNewGearItem({ item: "", dateBought: "" });
     setSelectedDate(null);
+  };
+
+  const toggleEditingItems = () => {
+    setIsEditingItems(!isEditingItems);
+    setIsEditingIconsVisible(!isEditingItems);
+
+    if (isAddMode) {
+      // If "Add" mode is open, close it
+      setIsAddMode(false);
+    }
   };
 
   const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -77,7 +92,7 @@ function GearHandles({ gearData: propGearData }: GearHandlesProps) {
     }
   };
 
-  const handleSubmit = async (e: FormEvent) => {
+  const handleAdd = async (e: FormEvent) => {
     e.preventDefault();
 
     if (!selectedDate) {
@@ -86,7 +101,6 @@ function GearHandles({ gearData: propGearData }: GearHandlesProps) {
     }
 
     const token = Cookies.get("token")?.replace("Bearer", "").trim();
-    console.log(token);
 
     if (!token) {
       console.error("Token not found in cookies. Please log in.");
@@ -96,7 +110,7 @@ function GearHandles({ gearData: propGearData }: GearHandlesProps) {
     const formattedDate = selectedDate.toISOString();
 
     try {
-      const gearResponse = await fetch(`http://localhost:5000/gear/`, {
+      const gearResponse = await fetch("http://localhost:5000/gear/", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -113,7 +127,7 @@ function GearHandles({ gearData: propGearData }: GearHandlesProps) {
         setGearData([...gearData, newGearItemData]);
         setNewGearItem({ item: "", dateBought: "" });
         setSelectedDate(null);
-        setIsFormVisible(false);
+        setIsAddMode(false);
       } else {
         console.error("Failed to add gear item.");
       }
@@ -122,15 +136,20 @@ function GearHandles({ gearData: propGearData }: GearHandlesProps) {
     }
   };
 
-  const handleEdit = async (
-    itemId: number,
-    newItem: string,
-    newDateBought: string
-  ) => {
+  const handleEdit = async (e: FormEvent) => {
+    e.preventDefault(); // Prevent the default form submission
+
+    if (editItemId === null) {
+      return;
+    }
+
+    const newItem = newGearItem.item;
+    const newDateBought = selectedDate?.toISOString() || "";
+
     const token = Cookies.get("token")?.replace("Bearer", "").trim();
 
     try {
-      const response = await fetch(`http://localhost:5000/gear/${itemId}`, {
+      const response = await fetch(`http://localhost:5000/gear/${editItemId}`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
@@ -144,13 +163,14 @@ function GearHandles({ gearData: propGearData }: GearHandlesProps) {
 
       if (response.status === 200) {
         const updatedGearData = gearData.map((item) => {
-          if (item.id === itemId) {
+          if (item.id === editItemId) {
             item.item = newItem;
             item.dateBought = newDateBought;
           }
           return item;
         });
         setGearData(updatedGearData);
+        setEditItemId(null);
       } else {
         console.error("Failed to update gear item.");
       }
@@ -159,27 +179,32 @@ function GearHandles({ gearData: propGearData }: GearHandlesProps) {
     }
   };
 
-  const toggleEditingItems = () => {
-    setIsEditingItems(!isEditingItems);
-    setIsEditingIconsVisible(!isEditingItems); // Toggle isEditingIconsVisible as well
-  };
-
   return (
     <div className="gear-container">
-      {isFormVisible && (
+      {isAddMode && (
         <GearForm
           item={newGearItem}
           selectedDate={selectedDate}
           handleInputChange={handleInputChange}
           handleDateChange={(date) => setSelectedDate(date)}
-          handleSubmit={handleSubmit}
+          handleSubmit={handleAdd}
           buttonText="Add"
+        />
+      )}
+      {editItemId !== null && (
+        <EditGearForm
+          item={newGearItem}
+          selectedDate={selectedDate}
+          handleInputChange={handleInputChange}
+          handleDateChange={(date) => setSelectedDate(date)}
+          handleSubmit={handleEdit}
+          buttonText="Save"
         />
       )}
 
       <h1 className="fixed bottom-96 right-100 z-50">
-        <span>Gear</span>
-        <button onClick={toggleForm} className="ml-2">
+        <span style={{ fontWeight: "bold" }}>Gear</span>
+        <button onClick={toggleAddMode} className="ml-2">
           <FaPlus />
         </button>
         <button onClick={toggleEditingItems} className="ml-2">
@@ -191,7 +216,10 @@ function GearHandles({ gearData: propGearData }: GearHandlesProps) {
         <GearList
           gearData={gearData}
           onDelete={handleDelete}
-          onEdit={handleEdit}
+          onEdit={(itemId) => {
+            setEditItemId(itemId);
+            setIsAddMode(false); // Close the "Add" form when entering "Edit" mode
+          }}
           isEditing={isEditingItems}
           isEditingIconsVisible={isEditingIconsVisible}
         />

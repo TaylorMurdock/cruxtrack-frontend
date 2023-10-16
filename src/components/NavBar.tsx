@@ -44,14 +44,17 @@ function NavBar({
                 </button>
               </Link>
             </div>
-            <div className="text-white text-2xl font-bold hover:text-light-brown hover:underline-none flex items-center">
+            <Link
+              to="/"
+              className="text-white text-2xl font-bold hover:text-light-brown hover:underline-none flex items-center"
+            >
               <img
                 src="/climbing.png"
                 alt="Climbing Icon"
                 className="w-6 h-6 mr-2"
               />
               CruxTrack
-            </div>
+            </Link>
             <div className="space-x-10 mt-4 sm:mt-0 ml-10">
               <button className="text-white hover:text-light-brown mr-4">
                 <CgDarkMode className="text-2xl" />
@@ -65,7 +68,8 @@ function NavBar({
             </div>
           </>
         ) : (
-          <div
+          <Link
+            to="/"
             className="text-white text-2xl font-bold hover:text-light-brown hover:underline-none flex items-center mx-auto"
             style={{ maxWidth: "200px" }}
           >
@@ -75,7 +79,7 @@ function NavBar({
               className="w-6 h-6 mr-2"
             />
             CruxTrack
-          </div>
+          </Link>
         )}
       </div>
     </nav>

@@ -15,7 +15,7 @@ function GearForm(props: GearFormProps) {
   return (
     <form
       onSubmit={props.handleSubmit}
-      className="fixed bottom-98 right-95 z-50"
+      className="fixed bottom-98 right-96 z-50"
     >
       <label className="mb-4 text-white">
         Item:
@@ -28,17 +28,19 @@ function GearForm(props: GearFormProps) {
           className="block w-full mt-2 p-2 border rounded text-black"
         />
       </label>
-      <label className="mb-4 text-white">
-        Date Bought:
+      <label className="mb-4 text-white pl-4">
         <DatePicker
           selected={props.selectedDate}
           onChange={props.handleDateChange}
           dateFormat="yyyy-MM-dd"
           placeholderText="Select a date"
-          className="block w-full mt-2 p-2 border rounded"
+          className="block w-full mt-2 p-2 border rounded text-black"
+          popperPlacement="right" // Specify the desired placement
         />
       </label>
-      <button type="submit">{props.buttonText}</button>
+      <button className="text-white p-2" type="submit">
+        {props.buttonText}
+      </button>
     </form>
   );
 }
