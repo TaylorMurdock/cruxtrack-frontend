@@ -34,7 +34,7 @@ function GearHandles({ gearData: propGearData }: GearHandlesProps) {
   const fetchGearData = () => {
     const token = Cookies.get("token")?.replace("Bearer", "").trim();
 
-    fetch("http://localhost:5000/gear/", {
+    fetch("https://cruxtrack-backend.onrender.com/gear/", {
       headers: {
         Authorization: `${token}`,
       },
