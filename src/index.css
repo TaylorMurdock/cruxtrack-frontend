@@ -20,45 +20,36 @@
 
 /* Style for the arrow */
 .arrow-down {
-    /* Your arrow styles here */
     animation: bounce 2s infinite;
 }
 
 /* Hide the scrollbar but allow scrolling */
 ::-webkit-scrollbar {
     width: 8px;
-    /* Width of the scrollbar */
 }
 
 ::-webkit-scrollbar-track {
     background: transparent;
-    /* Track color (transparent to hide) */
 }
 
 ::-webkit-scrollbar-thumb {
     background: transparent;
-    /* Thumb color (transparent to hide) */
     border: transparent;
-    /* Border color (transparent to hide) */
 }
 
 ::-webkit-scrollbar-thumb:hover {
     background: transparent;
-    /* Thumb color on hover (transparent to hide) */
 }
 
 body {
     margin: 0;
     padding: 0;
     background-image: url("./images/cruxtrackDashboardBg.jpg");
-    /* Replace with the actual path */
     background-size: cover;
     background-repeat: no-repeat;
 }
 
 .dashboard {
     padding: 20px;
-    /* Add padding to center the content */
     text-align: center;
-    /* Center align text */
 }

@@ -24,7 +24,7 @@ interface GearListProps {
 }
 
 function GearList(props: GearListProps) {
-  // Sort the gearData array by dateBought in ascending order
+  // Sort the gearData array order from oldest to newest
   const sortedGearData = [...props.gearData].sort((a, b) => {
     return new Date(a.dateBought).getTime() - new Date(b.dateBought).getTime();
   });

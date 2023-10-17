@@ -1,12 +1,12 @@
 import React, { useState, useEffect, ChangeEvent, FormEvent } from "react";
 import GearForm from "./GearForm";
-import EditGearForm from "./EditGearForm"; // Import the EditGearForm
+import EditGearForm from "./EditGearForm";
 import GearList from "./GearList";
 import { FaPlus } from "react-icons/fa";
 import { AiFillEdit } from "react-icons/ai";
 import "react-datepicker/dist/react-datepicker.css";
 import Cookies from "js-cookie";
-import "../../index.css"; // Import the CSS file
+import "../../index.css";
 
 interface GearItem {
   id: number;

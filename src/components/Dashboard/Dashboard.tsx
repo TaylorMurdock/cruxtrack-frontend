@@ -5,7 +5,7 @@ import "../../index.css";
 
 function Dashboard() {
   const [gearData, setGearData] = useState([]);
-  const [username, setUsername] = useState(""); // State for the username
+  const [username, setUsername] = useState("");
 
   useEffect(() => {
     const fetchGearData = async () => {

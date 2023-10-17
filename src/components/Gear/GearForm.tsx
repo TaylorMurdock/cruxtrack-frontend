@@ -35,7 +35,7 @@ function GearForm(props: GearFormProps) {
           dateFormat="yyyy-MM-dd"
           placeholderText="Select a date"
           className="block w-full mt-2 p-2 border rounded text-black"
-          popperPlacement="right" // Specify the desired placement
+          popperPlacement="right"
         />
       </label>
       <button className="text-white p-2" type="submit">

@@ -25,7 +25,6 @@ function AuthComponent({ onLogin, onSignup, onLogout }) {
 
       const data = await response.json();
 
-      // Store JWT in cookies without the "Bearer" prefix
       Cookies.set("token", data.token);
 
       // Successful login
@@ -63,10 +62,8 @@ function AuthComponent({ onLogin, onSignup, onLogout }) {
         Cookies.set("token", data.token);
         Cookies.set("username", username);
 
-        // Call the signup callback function (optional)
         onSignup();
 
-        // Automatically log in the user (optional)
         handleLogin();
       } else {
         throw new Error(`HTTP error! Status: ${response.status}`);
@@ -81,7 +78,7 @@ function AuthComponent({ onLogin, onSignup, onLogout }) {
     <div
       className="min-h-screen flex items-center justify-center"
       style={{
-        backgroundImage: `url(${cruxtrackLoginBg})`, // Use the imported image
+        backgroundImage: `url(${cruxtrackLoginBg})`, // login background image
         backgroundSize: "cover",
       }}
     >
@@ -94,25 +91,25 @@ function AuthComponent({ onLogin, onSignup, onLogout }) {
           placeholder="Username"
           value={username}
           onChange={(e) => setUsername(e.target.value)}
-          className="w-full border-2 border-green-300 rounded px-4 py-3" // Adjust the padding here
+          className="w-full border-2 border-green-300 rounded px-4 py-3"
         />
         <input
           type="password"
           placeholder="Password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
-          className="w-full border-2 border-green-300 rounded px-4 py-3" // Adjust the padding here
+          className="w-full border-2 border-green-300 rounded px-4 py-3"
         />
         <div className="flex justify-center">
           <button
             onClick={handleLogin}
-            className="bg-gradient-to-r from-green-900 to-green-600 text-white hover:bg-gradient-to-r hover:from-yellow-700 hover:via-yellow-550 hover:to-yellow-400 rounded-md px-8 py-3 mr-8" // Adjust the padding here
+            className="bg-gradient-to-r from-green-900 to-green-600 text-white hover:bg-gradient-to-r hover:from-yellow-700 hover:via-yellow-550 hover:to-yellow-400 rounded-md px-8 py-3 mr-8"
           >
             Login
           </button>
           <button
             onClick={handleSignup}
-            className="bg-gradient-to-r from-yellow-400 to-yellow-700 text-white hover:bg-gradient-to-r hover:from-green-600 hover:via-green-750 hover:to-green-900 rounded-md px-8 py-3" // Adjust the padding here
+            className="bg-gradient-to-r from-yellow-400 to-yellow-700 text-white hover:bg-gradient-to-r hover:from-green-600 hover:via-green-750 hover:to-green-900 rounded-md px-8 py-3"
           >
             Signup
           </button>
