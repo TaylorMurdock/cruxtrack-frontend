@@ -3,7 +3,7 @@ import Cookies from "js-cookie";
 
 import cruxtrackLoginBg from "../images/cruxtrackLoginBg.jpg";
 
-const apiUrl = "http://localhost:5000"; // Backend URL
+const apiUrl = "https://cruxtrack-backend.onrender.com"; // Backend URL
 
 function AuthComponent({ onLogin, onSignup, onLogout }) {
   const [username, setUsername] = useState("");

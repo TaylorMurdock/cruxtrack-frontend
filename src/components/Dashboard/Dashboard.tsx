@@ -10,7 +10,7 @@ function Dashboard() {
   useEffect(() => {
     const fetchGearData = async () => {
       try {
-        const response = await fetch("http://localhost:5000/gear", {
+        const response = await fetch("https://cruxtrack-backend.onrender.com", {
           headers: {
             Authorization: Cookies.get("token") || "",
           },

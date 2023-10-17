@@ -74,12 +74,15 @@ function GearHandles({ gearData: propGearData }: GearHandlesProps) {
     const token = Cookies.get("token")?.replace("Bearer", "").trim();
 
     try {
-      const response = await fetch(`http://localhost:5000/gear/${itemId}`, {
-        method: "DELETE",
-        headers: {
-          Authorization: `${token}`,
-        },
-      });
+      const response = await fetch(
+        `https://cruxtrack-backend.onrender.com/gear/${itemId}`,
+        {
+          method: "DELETE",
+          headers: {
+            Authorization: `${token}`,
+          },
+        }
+      );
 
       if (response.status === 204) {
         const updatedGearData = gearData.filter((item) => item.id !== itemId);
@@ -110,17 +113,20 @@ function GearHandles({ gearData: propGearData }: GearHandlesProps) {
     const formattedDate = selectedDate.toISOString();
 
     try {
-      const gearResponse = await fetch("http://localhost:5000/gear/", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: token,
-        },
-        body: JSON.stringify({
-          item: newGearItem.item,
-          dateBought: formattedDate,
-        }),
-      });
+      const gearResponse = await fetch(
+        "https://cruxtrack-backend.onrender.com/gear/",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: token,
+          },
+          body: JSON.stringify({
+            item: newGearItem.item,
+            dateBought: formattedDate,
+          }),
+        }
+      );
 
       if (gearResponse.status === 201) {
         const newGearItemData = await gearResponse.json();
@@ -149,17 +155,20 @@ function GearHandles({ gearData: propGearData }: GearHandlesProps) {
     const token = Cookies.get("token")?.replace("Bearer", "").trim();
 
     try {
-      const response = await fetch(`http://localhost:5000/gear/${editItemId}`, {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `${token}`,
-        },
-        body: JSON.stringify({
-          item: newItem,
-          dateBought: newDateBought,
-        }),
-      });
+      const response = await fetch(
+        `https://cruxtrack-backend.onrender.com/gear/${editItemId}`,
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `${token}`,
+          },
+          body: JSON.stringify({
+            item: newItem,
+            dateBought: newDateBought,
+          }),
+        }
+      );
 
       if (response.status === 200) {
         const updatedGearData = gearData.map((item) => {
