@@ -15,19 +15,13 @@ interface GearItemProps {
 }
 
 function GearItem(props: GearItemProps) {
-  const [isEditing, setIsEditing] = useState(false);
   const [editedItem, setEditedItem] = useState(props.gearItem.item);
   const [editedDateBought, setEditedDateBought] = useState(
     props.gearItem.dateBought
   );
 
-  const handleEditClick = () => {
-    setIsEditing(!isEditing);
-  };
-
   const handleSaveEdit = () => {
     props.onEdit(props.gearItem.id, editedItem, editedDateBought);
-    setIsEditing(false);
   };
 
   return (
@@ -41,8 +35,8 @@ function GearItem(props: GearItemProps) {
 
       {props.showEditIcons && (
         <div className="space-x-2">
-          <button onClick={handleEditClick}>
-            {isEditing ? <AiFillEdit /> : <AiFillEdit />}
+          <button onClick={handleSaveEdit}>
+            <AiFillEdit />
           </button>
           <button onClick={() => props.onDelete(props.gearItem.id)}>
             <BsFillTrashFill />
@@ -50,7 +44,7 @@ function GearItem(props: GearItemProps) {
         </div>
       )}
 
-      {isEditing ? (
+      {
         <EditGearForm
           item={{ item: editedItem, dateBought: editedDateBought }}
           selectedDate={new Date(editedDateBought)}
@@ -61,7 +55,7 @@ function GearItem(props: GearItemProps) {
           handleSubmit={handleSaveEdit}
           buttonText="Update"
         />
-      ) : null}
+      }
     </li>
   );
 }
