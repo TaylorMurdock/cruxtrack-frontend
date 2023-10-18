@@ -1,8 +1,7 @@
 import React from "react";
-import GearItem from "./GearItem"; // Import the GearItem component
-import "../../index.css"; // Import the CSS file
+import GearItem from "./GearItem";
+import "../../index.css";
 
-// Define a function to format the date
 function formatDate(dateString: string) {
   const date = new Date(dateString);
   const month = (date.getMonth() + 1).toString().padStart(2, "0");
@@ -24,14 +23,13 @@ interface GearListProps {
 }
 
 function GearList(props: GearListProps) {
-  // Sort the gearData array by dateBought in ascending order
   const sortedGearData = [...props.gearData].sort((a, b) => {
     return new Date(a.dateBought).getTime() - new Date(b.dateBought).getTime();
   });
 
   return (
     <div className="fixed bottom-8 right-8 flex flex-col items-end justify-center">
-      <div className="mx-auto p-4 bg-white border-green-500 border-4 rounded-lg min-h-64 max-h-64 min-w-3xl max-w-3xl overflow-y-auto">
+      <div className="mx-auto p-4 bg-white border-green-500 border-4 rounded-lg h-[400px] w-[500px] overflow-y-auto">
         <div className="flex my-8">
           <div style={{ flex: 1, fontWeight: "bold", maxWidth: "50%" }}>
             <p className="text-center">Item</p>
@@ -47,7 +45,7 @@ function GearList(props: GearListProps) {
             <p className="text-center">Date Bought</p>
           </div>
         </div>
-        <ul style={{ maxHeight: "300px", maxWidth: "100%" }}>
+        <ul>
           {sortedGearData.map((gearItem) => (
             <GearItem
               key={gearItem.id}
