@@ -22,7 +22,7 @@ function GearItem(props: GearItemProps) {
   );
 
   const handleEditClick = () => {
-    setIsEditing(true);
+    setIsEditing(!isEditing);
   };
 
   const handleSaveEdit = () => {
@@ -42,7 +42,7 @@ function GearItem(props: GearItemProps) {
       {props.showEditIcons && (
         <div className="space-x-2">
           <button onClick={handleEditClick}>
-            <AiFillEdit />
+            {isEditing ? <AiFillEdit /> : <AiFillEdit />}
           </button>
           <button onClick={() => props.onDelete(props.gearItem.id)}>
             <BsFillTrashFill />
