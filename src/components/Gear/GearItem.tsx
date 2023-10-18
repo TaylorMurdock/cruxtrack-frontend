@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import EditGearForm from "./EditGearForm";
 import { AiFillEdit } from "react-icons/ai";
 import { BsFillTrashFill } from "react-icons/bs";
 
@@ -49,7 +50,18 @@ function GearItem(props: GearItemProps) {
         </div>
       )}
 
-      {/* The EditGearForm component has been removed */}
+      {isEditing ? (
+        <EditGearForm
+          item={{ item: editedItem, dateBought: editedDateBought }}
+          selectedDate={new Date(editedDateBought)}
+          handleInputChange={(e) => setEditedItem(e.target.value)}
+          handleDateChange={(date) =>
+            setEditedDateBought(date?.toDateString() || "")
+          }
+          handleSubmit={handleSaveEdit}
+          buttonText="Update"
+        />
+      ) : null}
     </li>
   );
 }
