@@ -49,6 +49,19 @@ function GearItem(props: GearItemProps) {
           </button>
         </div>
       )}
+
+      {isEditing ? (
+        <EditGearForm
+          item={{ item: editedItem, dateBought: editedDateBought }}
+          selectedDate={new Date(editedDateBought)}
+          handleInputChange={(e) => setEditedItem(e.target.value)}
+          handleDateChange={(date) =>
+            setEditedDateBought(date?.toDateString() || "")
+          }
+          handleSubmit={handleSaveEdit}
+          buttonText="Update"
+        />
+      ) : null}
     </li>
   );
 }

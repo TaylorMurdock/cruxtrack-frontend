@@ -13,10 +13,7 @@ interface EditGearFormProps {
 
 function EditGearForm(props: EditGearFormProps) {
   return (
-    <form
-      onSubmit={props.handleSubmit}
-      className="fixed bottom-98 right-96 z-50"
-    >
+    <form onSubmit={props.handleSubmit} className="fixed bottom-98 right-96 z-50">
       <label className="mb-4 text-white">
         Item:
         <input
