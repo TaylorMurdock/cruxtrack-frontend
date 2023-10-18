@@ -10,11 +10,14 @@ function Dashboard() {
   useEffect(() => {
     const fetchGearData = async () => {
       try {
-        const response = await fetch("https://cruxtrack-backend.onrender.com", {
-          headers: {
-            Authorization: Cookies.get("token") || "",
-          },
-        });
+        const response = await fetch(
+          "https://cruxtrack-backend.onrender.com/gear",
+          {
+            headers: {
+              Authorization: Cookies.get("token") || "",
+            },
+          }
+        );
 
         if (!response.ok) {
           throw new Error(`HTTP error! Status: ${response.status}`);

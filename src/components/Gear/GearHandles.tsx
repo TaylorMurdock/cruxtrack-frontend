@@ -190,38 +190,38 @@ function GearHandles({ gearData: propGearData }: GearHandlesProps) {
 
   return (
     <div className="gear-container">
-      {isAddMode && (
-        <GearForm
-          item={newGearItem}
-          selectedDate={selectedDate}
-          handleInputChange={handleInputChange}
-          handleDateChange={(date) => setSelectedDate(date)}
-          handleSubmit={handleAdd}
-          buttonText="Add"
-        />
-      )}
-      {editItemId !== null && (
-        <EditGearForm
-          item={newGearItem}
-          selectedDate={selectedDate}
-          handleInputChange={handleInputChange}
-          handleDateChange={(date) => setSelectedDate(date)}
-          handleSubmit={handleEdit}
-          buttonText="Save"
-        />
-      )}
-
-      <h1 className="fixed bottom-96 right-100 z-50">
-        <span style={{ fontWeight: "bold" }}>Gear</span>
-        <button onClick={toggleAddMode} className="ml-2">
-          <FaPlus />
-        </button>
-        <button onClick={toggleEditingItems} className="ml-2">
-          <AiFillEdit />
-        </button>
-      </h1>
-
       <div className="gear-list-container">
+        {isAddMode && (
+          <GearForm
+            item={newGearItem}
+            selectedDate={selectedDate}
+            handleInputChange={handleInputChange}
+            handleDateChange={(date) => setSelectedDate(date)}
+            handleSubmit={handleAdd}
+            buttonText="Add"
+          />
+        )}
+        {editItemId !== null && (
+          <EditGearForm
+            item={newGearItem}
+            selectedDate={selectedDate}
+            handleInputChange={handleInputChange}
+            handleDateChange={(date) => setSelectedDate(date)}
+            handleSubmit={handleEdit}
+            buttonText="Save"
+          />
+        )}
+
+        <h1 className="fixed bottom-96 right-100 z-50">
+          <span style={{ fontWeight: "bold" }}>Gear</span>
+          <button onClick={toggleAddMode} className="ml-2">
+            <FaPlus />
+          </button>
+          <button onClick={toggleEditingItems} className="ml-2">
+            <AiFillEdit />
+          </button>
+        </h1>
+
         <GearList
           gearData={gearData}
           onDelete={handleDelete}
