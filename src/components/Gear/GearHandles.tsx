@@ -1,6 +1,6 @@
 import React, { useState, useEffect, ChangeEvent, FormEvent } from "react";
 import GearForm from "./GearForm";
-import EditGearForm from "./EditGearForm";
+import EditGearForm from "./EditGearForm"; // Assuming you have an EditGearForm component
 import GearList from "./GearList";
 import { FaPlus } from "react-icons/fa";
 import { AiFillEdit } from "react-icons/ai";
@@ -46,7 +46,6 @@ function GearHandles({ gearData: propGearData }: GearHandlesProps) {
 
   const toggleAddMode = () => {
     if (isEditingItems) {
-      // If "Edit" mode is open, close it
       setIsEditingItems(false);
     }
     setIsAddMode(!isAddMode);
@@ -60,7 +59,6 @@ function GearHandles({ gearData: propGearData }: GearHandlesProps) {
     setIsEditingIconsVisible(!isEditingItems);
 
     if (isAddMode) {
-      // If "Add" mode is open, close it
       setIsAddMode(false);
     }
   };
@@ -227,7 +225,7 @@ function GearHandles({ gearData: propGearData }: GearHandlesProps) {
           onDelete={handleDelete}
           onEdit={(itemId) => {
             setEditItemId(itemId);
-            setIsAddMode(false); // Close the "Add" form when entering "Edit" mode
+            setIsAddMode(false);
           }}
           isEditing={isEditingItems}
           isEditingIconsVisible={isEditingIconsVisible}
