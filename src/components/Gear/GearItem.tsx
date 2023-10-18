@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import EditGearForm from "./EditGearForm";
 import { AiFillEdit } from "react-icons/ai";
 import { BsFillTrashFill } from "react-icons/bs";
 
@@ -14,8 +15,19 @@ interface GearItemProps {
 }
 
 function GearItem(props: GearItemProps) {
+  const [isEditing, setIsEditing] = useState(false);
+  const [editedItem, setEditedItem] = useState(props.gearItem.item);
+  const [editedDateBought, setEditedDateBought] = useState(
+    props.gearItem.dateBought
+  );
+
   const handleEditClick = () => {
-    // Implement the edit functionality here
+    setIsEditing(!isEditing);
+  };
+
+  const handleSaveEdit = () => {
+    props.onEdit(props.gearItem.id, editedItem, editedDateBought);
+    setIsEditing(false);
   };
 
   return (
@@ -30,13 +42,26 @@ function GearItem(props: GearItemProps) {
       {props.showEditIcons && (
         <div className="space-x-2">
           <button onClick={handleEditClick}>
-            <AiFillEdit />
+            {isEditing ? <AiFillEdit /> : <AiFillEdit />}
           </button>
           <button onClick={() => props.onDelete(props.gearItem.id)}>
             <BsFillTrashFill />
           </button>
         </div>
       )}
+
+      {isEditing ? (
+        <EditGearForm
+          item={{ item: editedItem, dateBought: editedDateBought }}
+          selectedDate={new Date(editedDateBought)}
+          handleInputChange={(e) => setEditedItem(e.target.value)}
+          handleDateChange={(date) =>
+            setEditedDateBought(date?.toDateString() || "")
+          }
+          handleSubmit={handleSaveEdit}
+          buttonText="Update"
+        />
+      ) : null}
     </li>
   );
 }
