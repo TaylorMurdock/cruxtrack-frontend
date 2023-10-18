@@ -32,7 +32,6 @@ function EditGearForm(props: EditGearFormProps) {
         <DatePicker
           selected={props.selectedDate}
           onChange={props.handleDateChange}
-          value={props.item.dateBought}
           dateFormat="yyyy-MM-dd"
           placeholderText="Select a date"
           className="block w-full mt-2 p-2 border rounded text-black"
