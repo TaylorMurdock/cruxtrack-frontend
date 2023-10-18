@@ -60,7 +60,7 @@ function GearItem(props: GearItemProps) {
             setEditedDateBought(date?.toDateString() || "")
           }
           handleSubmit={handleSaveEdit}
-          buttonText="Save"
+          buttonText="Update"
         />
       ) : null}
     </li>
