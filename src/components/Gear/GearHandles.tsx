@@ -212,7 +212,7 @@ function GearHandles({ gearData: propGearData }: GearHandlesProps) {
           />
         )}
 
-        <h1 className="fixed bottom-97 right-98 z-50">
+        <h1 className="fixed bottom-96 right-98 z-50">
           <span style={{ fontWeight: "bold" }}>Gear</span>
           <button onClick={toggleAddMode} className="ml-2">
             <FaPlus />
