@@ -1,6 +1,6 @@
 import React, { useState, useEffect, ChangeEvent, FormEvent } from "react";
 import GearForm from "./GearForm";
-import EditGearForm from "./EditGearForm"; // Assuming you have an EditGearForm component
+import EditGearForm from "./EditGearForm";
 import GearList from "./GearList";
 import { FaPlus } from "react-icons/fa";
 import { AiFillEdit } from "react-icons/ai";
@@ -141,7 +141,7 @@ function GearHandles({ gearData: propGearData }: GearHandlesProps) {
   };
 
   const handleEdit = async (e: FormEvent) => {
-    e.preventDefault(); // Prevent the default form submission
+    e.preventDefault();
 
     if (editItemId === null) {
       return;
