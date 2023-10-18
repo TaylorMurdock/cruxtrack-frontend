@@ -29,7 +29,7 @@ function GearList(props: GearListProps) {
 
   return (
     <div className="fixed bottom-8 right-8 flex flex-col items-end justify-center">
-      <div className="mx-auto p-4 bg-white border-green-500 border-4 rounded-lg h-[300px] w-[600px] overflow-y-auto">
+      <div className="mx-auto p-4 bg-white border-green-500 border-4 rounded-lg h-[280px] w-[600px] overflow-y-auto">
         <div className="flex my-8">
           <div style={{ flex: 1, fontWeight: "bold", maxWidth: "50%" }}>
             <p className="text-center">Item</p>
