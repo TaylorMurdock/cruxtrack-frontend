@@ -24,23 +24,30 @@ interface GearListProps {
 }
 
 function GearList(props: GearListProps) {
-  // Sort the gearData array order from oldest to newest
+  // Sort the gearData array by dateBought in ascending order
   const sortedGearData = [...props.gearData].sort((a, b) => {
     return new Date(a.dateBought).getTime() - new Date(b.dateBought).getTime();
   });
 
   return (
     <div className="fixed bottom-8 right-8 flex flex-col items-end justify-center">
-      <div className="mx-auto p-4 bg-white border-green-500 border-4 rounded-lg h-[300px] w-[500px] overflow-y-auto">
+      <div className="mx-auto p-4 bg-white border-green-500 border-4 rounded-lg max-h-64 max-w-3xl overflow-y-auto">
         <div className="flex my-8">
-          <div style={{ flex: 1, fontWeight: "bold" }}>
+          <div style={{ flex: 1, fontWeight: "bold", maxWidth: "50%" }}>
             <p className="text-center">Item</p>
           </div>
-          <div style={{ flex: 1, marginLeft: "250px", fontWeight: "bold" }}>
+          <div
+            style={{
+              flex: 1,
+              marginLeft: "250px",
+              fontWeight: "bold",
+              maxWidth: "50%",
+            }}
+          >
             <p className="text-center">Date Bought</p>
           </div>
         </div>
-        <ul>
+        <ul style={{ maxHeight: "300px", maxWidth: "100%" }}>
           {sortedGearData.map((gearItem) => (
             <GearItem
               key={gearItem.id}
